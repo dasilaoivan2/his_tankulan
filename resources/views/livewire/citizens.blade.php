@@ -30,7 +30,7 @@
             @include('livewire.citizens.confirmupdate')
             @include('livewire.citizens.confirmdelete')
             @include('livewire.citizens.confirmcancel')
-            @include('livewire.citizens.confirmcancelEdit')
+            @include('livewire.citizens.confirmcanceledit')
 
             <div style="overflow-y: hidden; max-width: 100%;">
                 <table class="table-auto w-full text-center">

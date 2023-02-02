@@ -31,7 +31,7 @@
             @include('livewire.households.confirmupdate')
             @include('livewire.households.confirmdelete')
             @include('livewire.households.confirmcancel')
-            @include('livewire.households.confirmcancelEdit')
+            @include('livewire.households.confirmcanceledit')
 
             @include('livewire.households.zonebrgy.addzonebrgy')
             @include('livewire.households.zonebrgy.editzonebrgy')
