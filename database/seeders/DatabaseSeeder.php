@@ -24,7 +24,11 @@ class DatabaseSeeder extends Seeder
             FamilyroleSeeder::class,
             ClassificationSeeder::class,
             ZoneSeeder::class,
-            TypeSeeder::class
+            TypeSeeder::class,
+            AgebracketSeeder::class,
+            WorkSeeder::class,
+            CitizentypeSeeder::class,
+            UserroleSeeder::class
         ]);
     }
 }

@@ -1,10 +1,10 @@
 <x-jet-confirmation-modal maxWidth="2xl" wire:model.defer="confirmSave">
     <x-slot name="title">
-        Add Case
+        Add Complaint
     </x-slot>
 
     <x-slot name="content">
-        Are you sure you want to add this case? Once you add it, all data will be stored and displayed.
+        Are you sure you want to add this complaint? Once you add it, all data will be stored and displayed.
     </x-slot>
 
     <x-slot name="footer">

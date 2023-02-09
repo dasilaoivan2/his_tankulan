@@ -51,4 +51,25 @@ class HouseholdsReportController extends Controller
 
         return view('reports.households.householdzone', compact('households', 'zone'));
     }
+
+    public function householdcr($cr)
+    {
+        $households = Household::where('cr', $cr)->get();
+
+       
+
+        return view('reports.households.householdcr', compact('households', 'cr'));
+    }
+    
+    public function householdzonecr($zone_id, $cr)
+    {
+        $zone = Zone::find($zone_id);
+
+        $households = Household::where('cr', $cr)
+        ->where('zone_id', $zone->id)
+        ->get();
+
+
+        return view('reports.households.householdzonecr', compact('households', 'cr', 'zone'));
+    }
 }

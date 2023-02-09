@@ -27,7 +27,7 @@ class Classifications extends Component
 
     public function render()
     {
-        return view('livewire.classifications',['classifications' => Classification::select('classifications.*')->where('classifications.name','LIKE','%'.$this->searchToken.'%')
+        return view('livewire.classifications', ['classifications' => Classification::select('classifications.*')->where('classifications.name','LIKE','%'.$this->searchToken.'%')
             ->orderBy('id', 'ASC')
             ->paginate(10)]);
     }

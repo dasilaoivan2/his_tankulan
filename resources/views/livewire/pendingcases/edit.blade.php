@@ -1,9 +1,9 @@
 <x-jet-dialog-modal maxWidth="2xl" wire:model="isEdit">
-    <x-slot name="title">Edit Cases</x-slot>
+    <x-slot name="title">Edit Complaint</x-slot>
 
     <x-slot name="content">
         <form>
-            <x-jet-label for="" value="{{ __('Case Details') }}" />
+            <x-jet-label for="" value="{{ __('Complaint Details') }}" />
 
             <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-2 py-2 bg-white sm:p-6">

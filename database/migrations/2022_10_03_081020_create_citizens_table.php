@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('permanent_address')->nullable();
             $table->string('email')->nullable();
             $table->foreignId('familyrole_id');
+            $table->foreignId('citizentype_id');
+            $table->foreignId('work_id');
             $table->text('photo')->nullable();
             $table->timestamps();
         });

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Household Information System</title>
+    <link href="{{asset('storage/logo/tankulan_logo.png')}}" rel="icon">
 </head>
 <style>
     body {

@@ -1,10 +1,10 @@
 <x-jet-confirmation-modal maxWidth="2xl" wire:model.defer="confirmUpdate">
     <x-slot name="title">
-        Update Case
+        Update Complaint
     </x-slot>
 
     <x-slot name="content">
-        Are you sure you want to update this case? Once you update it, all data will be stored and displayed.
+        Are you sure you want to update this complaint? Once you update it, all data will be stored and displayed.
     </x-slot>
 
     <x-slot name="footer">

@@ -8,6 +8,7 @@ use App\Models\Citizen;
 use App\Models\Citizencategory;
 use App\Models\Citizenpendingcase;
 use App\Models\Citizenprogram;
+use App\Models\Citizentype;
 use App\Models\Classification;
 use App\Models\Familyrole;
 use App\Models\Gender;
@@ -15,6 +16,7 @@ use App\Models\Household;
 use App\Models\Pendingcase;
 use App\Models\Program;
 use App\Models\Type;
+use App\Models\Work;
 use App\Models\Zone;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -31,6 +33,8 @@ class Households extends Component
     public $residence_name, $type_id, $classification_id, $barangay_id = 21, $zone_id, $address_detail, $income;
     public $arraybarangay, $arrayzone, $savebrgy;
     public $zoneBarangaylists = [];
+
+    public $cr;
 
             //edit househould
     public $household_id;
@@ -54,6 +58,8 @@ class Households extends Component
 
 
     public $types, $classifications, $zones, $barangays, $categories, $programs, $genders, $familyroles, $pendingcases;
+    public $work_id, $citizentype_id;
+    public $works, $citizentypes;
 
     public $searchToken;
 
@@ -84,6 +90,8 @@ class Households extends Component
         $this->genders = Gender::all();
         $this->familyroles = Familyrole::all();
         $this->pendingcases = Pendingcase::all();
+        $this->works = Work::all();
+        $this->citizentypes = Citizentype::all();
 
                 
         
@@ -203,6 +211,8 @@ class Households extends Component
         $this->photo = '';
         $this->filename = '';
         $this->citizen_id = '';
+        $this->work_id = '';
+        $this->citizentype_id = '';
         
         
         $this->resetArrayCheckbox();
@@ -229,6 +239,8 @@ class Households extends Component
             'birthdate' => 'required',
             'gender_id' => 'required',
             'familyrole_id' => 'required',
+            'work_id' => 'required',
+            'citizentype_id' => 'required',
         ],
         [
             'firstname.required' => 'Required Field',
@@ -236,6 +248,8 @@ class Households extends Component
             'birthdate.required' => 'Required Field',
             'gender_id.required' => 'Required Field',
             'familyrole_id.required' => 'Required Field',
+            'work_id.required' => 'Please select Nature of Work',
+            'citizentype_id.required' => 'Please select Type of Resident',
         ]);
         $familyrole = Familyrole::find($this->familyrole_id);
         $familyrole_name = $familyrole->name;
@@ -252,6 +266,8 @@ class Households extends Component
             'permanent_address' => $this->permanent_address,
             'email' => $this->email,
             'familyrole_id' => $this->familyrole_id,
+            'work_id' => $this->work_id,
+            'citizentype_id' => $this->citizentype_id,
             'familyrole_name' => $familyrole_name,
             'photo' => $this->photo,
             'categories' => $this->category_id,
@@ -281,6 +297,8 @@ class Households extends Component
         $this->permanent_address = $citizenlist['permanent_address'];
         $this->email = $citizenlist['email'];
         $this->familyrole_id = $citizenlist['familyrole_id'];
+        $this->work_id = $citizenlist['work_id'];
+        $this->citizentype_id = $citizenlist['citizentype_id'];
         $this->photo = $citizenlist['photo'];
 
         $this->category_id = $citizenlist['categories'];
@@ -328,6 +346,8 @@ class Households extends Component
             'birthdate' => 'required',
             'gender_id' => 'required',
             'familyrole_id' => 'required',
+            'work_id' => 'required',
+            'citizentype_id' => 'required',
         ],
         [
             'firstname.required' => 'Required Field',
@@ -335,6 +355,8 @@ class Households extends Component
             'birthdate.required' => 'Required Field',
             'gender_id.required' => 'Required Field',
             'familyrole_id.required' => 'Required Field',
+            'work_id.required' => 'Please select Nature of Work',
+            'citizentype_id.required' => 'Please select Type of Resident',
         ]);
         $familyrole = Familyrole::find($this->familyrole_id);
         $familyrole_name = $familyrole->name;
@@ -351,6 +373,8 @@ class Households extends Component
             'permanent_address' => $this->permanent_address,
             'email' => $this->email,
             'familyrole_id' => $this->familyrole_id,
+            'work_id' => $this->work_id,
+            'citizentype_id' => $this->citizentype_id,
             'familyrole_name' => $familyrole_name,
             'photo' => $this->photo,
             'categories' => $this->category_id,
@@ -465,6 +489,7 @@ class Households extends Component
         $this->income = '';
         $this->household_id = '';
         $this->savebrgy = '';
+        $this->cr = '';
 
 
         $this->zoneBarangaylists = [];
@@ -498,7 +523,8 @@ class Households extends Component
                 'barangay_id' => 'required',
                 'zone_id' => 'required',
                 'address_detail' => 'required',
-                'income' => 'required'
+                'income' => 'required',
+                'cr' => 'required'
             ],[
                 'residence_name.required' => 'Field is required.',
                 'type_id.required' => 'Field is required.',
@@ -506,7 +532,8 @@ class Households extends Component
                 'barangay_id.required' => 'Field is required.',
                 'zone_id.required' => 'Field is required.',
                 'address_detail.required' => 'Field is required.',
-                'income.required' => 'Field is required.'
+                'income.required' => 'Field is required.',
+                'cr.required' => 'Please check button.'
             ]);
 
             
@@ -523,7 +550,8 @@ class Households extends Component
             'barangay_id' => $this->barangay_id,
             'zone_id' => $this->zone_id,
             'address_detail' => $this->address_detail,
-            'income' => $this->income
+            'income' => $this->income,
+            'cr' => $this->cr
         ]);
 
         
@@ -551,6 +579,8 @@ class Households extends Component
                 'permanent_address' => $citizenlist['permanent_address'],
                 'email' => $citizenlist['email'],
                 'familyrole_id' => $citizenlist['familyrole_id'],
+                'work_id' => $citizenlist['work_id'],
+                'citizentype_id' => $citizenlist['citizentype_id'],
                 'photo' => $nameofPhoto
             ]);
 
@@ -604,6 +634,7 @@ class Households extends Component
         $this->residence_name = $household->residence_name;
         $this->address_detail = $household->address_detail;
         $this->income = $household->income;
+        $this->cr = $household->cr;
         
         $this->citizens = Citizen::where('household_id', $household->id)->get();
 
@@ -627,6 +658,8 @@ class Households extends Component
         $this->permanent_address = $citizen->permanent_address;
         $this->email = $citizen->email;
         $this->familyrole_id = $citizen->familyrole_id;
+        $this->work_id = $citizen->work_id;
+        $this->citizentype_id = $citizen->citizentype_id;
         $this->photo = null;
         $this->filename = $citizen->photo;
 
@@ -673,6 +706,8 @@ class Households extends Component
                 'birthdate' => 'required',
                 'gender_id' => 'required',
                 'familyrole_id' => 'required',
+                'work_id' => 'required',
+                'citizentype_id' => 'required',
             ],
             [
                 'firstname.required' => 'Required Field',
@@ -680,6 +715,8 @@ class Households extends Component
                 'birthdate.required' => 'Required Field',
                 'gender_id.required' => 'Required Field',
                 'familyrole_id.required' => 'Required Field',
+                'work_id.required' => 'Please select Nature of Work',
+                'citizentype_id.required' => 'Please select Type of Resident',
             ]);
             
     
@@ -707,6 +744,8 @@ class Households extends Component
                 'permanent_address' => $this->permanent_address,
                 'email' => $this->email,
                 'familyrole_id' => $this->familyrole_id,
+                'work_id' => $this->work_id,
+                'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto
             ]);
     
@@ -839,6 +878,8 @@ class Households extends Component
             'birthdate' => 'required',
             'gender_id' => 'required',
             'familyrole_id' => 'required',
+            'work_id' => 'required',
+            'citizentype_id' => 'required',
         ],
         [
             'firstname.required' => 'Required Field',
@@ -846,6 +887,8 @@ class Households extends Component
             'birthdate.required' => 'Required Field',
             'gender_id.required' => 'Required Field',
             'familyrole_id.required' => 'Required Field',
+            'work_id.required' => 'Please select Nature of Work',
+            'citizentype_id.required' => 'Please select Type of Resident',
         ]);
         
 
@@ -870,6 +913,8 @@ class Households extends Component
             'permanent_address' => $this->permanent_address,
             'email' => $this->email,
             'familyrole_id' => $this->familyrole_id,
+            'work_id' => $this->work_id,
+            'citizentype_id' => $this->citizentype_id,
             'photo' => $nameofPhoto,
             
         ]);
@@ -935,7 +980,8 @@ class Households extends Component
                 'barangay_id' => 'required',
                 'zone_id' => 'required',
                 'address_detail' => 'required',
-                'income' => 'required'
+                'income' => 'required',
+                'cr' => 'required'
             ],[
                 'residence_name.required' => 'Field is required.',
                 'type_id.required' => 'Field is required.',
@@ -943,7 +989,8 @@ class Households extends Component
                 'barangay_id.required' => 'Field is required.',
                 'zone_id.required' => 'Field is required.',
                 'address_detail.required' => 'Field is required.',
-                'income.required' => 'Field is required.'
+                'income.required' => 'Field is required.',
+                'cr.required' => 'Please check button.'
             ]);
 
             
@@ -961,7 +1008,8 @@ class Households extends Component
             'barangay_id' => $this->barangay_id,
             'zone_id' => $this->zone_id,
             'address_detail' => $this->address_detail,
-            'income' => $this->income
+            'income' => $this->income,
+            'cr' => $this->cr
         ]);
 
 

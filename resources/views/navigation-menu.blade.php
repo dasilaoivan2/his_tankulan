@@ -16,6 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
 
+                    @if(Auth::user()->userrole_id == 1)
                     <x-jet-nav-link href="{{ route('households') }}" :active="request()->routeIs('households')">
                         {{ __('Households') }}
                     </x-jet-nav-link>
@@ -23,15 +24,25 @@
                     <x-jet-nav-link href="{{ route('citizens') }}" :active="request()->routeIs('citizens')">
                         {{ __('Citizens') }}
                     </x-jet-nav-link>
+                    @else
+                    <x-jet-nav-link href="{{ route('encoder.households') }}" :active="request()->routeIs('households')">
+                        {{ __('Households') }}
+                    </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('encoder.citizens') }}" :active="request()->routeIs('citizens')">
+                        {{ __('Citizens') }}
+                    </x-jet-nav-link>
+
+                    @endif
                 </div>
 
-
+                @if(Auth::user()->userrole_id == 1)
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-jet-dropdown align="right" width="40">
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-bold rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    {{ __('Settings') }}
+                                    {{ __('Settings / Database') }}
 
                                     <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -59,7 +70,7 @@
                                 </x-jet-dropdown-link>
 
                                 <x-jet-dropdown-link href="{{route('pendingcases')}}" :active="request()->routeIs('pendingcases')">
-                                    {{ __('Cases') }}
+                                    {{ __('Complaints') }}
                                 </x-jet-dropdown-link>
 
                                 <x-jet-dropdown-link href="{{route('familyroles')}}" :active="request()->routeIs('familyroles')">
@@ -68,6 +79,18 @@
 
                                 <x-jet-dropdown-link href="{{route('zones')}}" :active="request()->routeIs('zones')">
                                     {{ __('Zones') }}
+                                </x-jet-dropdown-link>
+
+                                <x-jet-dropdown-link href="{{route('agebrackets')}}" :active="request()->routeIs('agebrackets')">
+                                    {{ __('Age Brackets') }}
+                                </x-jet-dropdown-link>
+
+                                <x-jet-dropdown-link href="{{route('works')}}" :active="request()->routeIs('works')">
+                                    {{ __('Nature of Work') }}
+                                </x-jet-dropdown-link>
+
+                                <x-jet-dropdown-link href="{{route('citizentypes')}}" :active="request()->routeIs('citizentypes')">
+                                    {{ __('Citizen Type') }}
                                 </x-jet-dropdown-link>
 
                                 <div class="border-t border-gray-100"></div>
@@ -103,6 +126,18 @@
                                         {{ __('Zone') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('citizenagerangereports') }}" :active="request()->routeIs('citizenagerangereports')">
+                                        {{ __('Age Between') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="{{ route('citizenworkreports') }}" :active="request()->routeIs('citizenworkreports')">
+                                        {{ __('Work') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="{{ route('citizentypereports') }}" :active="request()->routeIs('citizentypereports')">
+                                        {{ __('Type') }}
+                                    </x-jet-dropdown-link>
+
                                     
 
                                 </div>
@@ -129,6 +164,10 @@
                                         {{ __('Zone') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{route('householdcrreports')}}" :active="request()->routeIs('householdcrreports')">
+                                        {{ __('Comfort Room') }}
+                                    </x-jet-dropdown-link>
+
 
                                 </div>
                             </div>
@@ -136,6 +175,7 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Household Information System</title>
+    <link href="{{asset('storage/logo/tankulan_logo.png')}}" rel="icon">
 </head>
 <style>
     body {
@@ -228,6 +229,7 @@
                 <td style="border: solid black 1px; background: lightgray;">MIDDLENAME</td>
                 <td width="35px" style="border: solid black 1px; background: lightgray;">EXT.</td>
                 <td style="border: solid black 1px; background: lightgray;">BIRTHDATE</td>
+                <td style="border: solid black 1px; background: lightgray;">AGE</td>
                 <td style="border: solid black 1px; background: lightgray;">CONTACT NO.</td>
                 <td style="border: solid black 1px; background: lightgray;">ZONE</td>
             </tr>
@@ -249,6 +251,7 @@
                 <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->middlename}}</td>
                 <td width="35px" style="border: solid black 1px; text-transform: uppercase;">{{$citizen->suffixname}}</td>
                 <td style="border: solid black 1px; text-transform: uppercase;">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase;">{{\Carbon\Carbon::parse($citizen->birthdate)->age}}</td>
                 <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->contact_no}}</td>
                 <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->zone_name}}</td>
             </tr>

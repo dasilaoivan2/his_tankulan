@@ -102,7 +102,20 @@
                             <x-jet-input-error for="income" class="mt-2" />
                         </div>
                     </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 border py-4 px-4">
+                        <div class="flex items-center">
+                        <x-jet-label for="cr" value="{{ __('Household with Comfort Room (CR)? *') }}" />
 
+                        </div>
+                        <div class="flex items-center">
+                            <input id="link-radio" type="radio" wire:model.debounce="cr" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="link-radio" class="ml-2 mr-6 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+
+                            <input id="link-radio2" type="radio" wire:model.debounce="cr" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="link-radio2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                        </div>
+                    </div>
+                    <x-jet-input-error for="cr" class="mt-2" />
                 </div>
             </div>
             <br>
@@ -244,13 +257,13 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="viewcaseform" class="block font-bold text-sm text-red-700">
-                                                Add Case
+                                                Add Complaint
                                                 <input type="checkbox" class="font-bolder rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="viewcaseform" wire:model="viewCaseForm">
 
                                             </label>
 
                                             @if($viewCaseForm)
-                                            <x-jet-label for="pendingcase" value="{{ __('Cases:') }}" />
+                                            <x-jet-label for="pendingcase" value="{{ __('Complaints:') }}" />
 
                                             @foreach($pendingcases as $key => $pendingcase)
                                             <label for="pendingcase" class="block text-gray-700 text-sm mb-2 px-2 md:px-2">
@@ -278,6 +291,33 @@
 
                                             <x-jet-input id="permanent_address" type="text" class="mt-1 block w-full" wire:model="permanent_address" />
                                             <x-jet-input-error for="permanent_address" class="mt-2" />
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="mb-2">
+                                            <x-jet-label for="work_id" value="{{ __('Nature of Work') }}" />
+
+                                            <select id="work_id" wire:model="work_id" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                                                <option value="">Select...</option>
+                                                @foreach($works as $work)
+                                                <option value="{{$work->id}}">{{$work->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <x-jet-input-error for="work_id" class="mt-2" />
+                                        </div>
+
+
+
+                                        <div class="mb-2">
+                                            <x-jet-label for="citizentype_id" value="{{ __('Type of Resident') }}" />
+
+                                            <select id="citizentype_id" wire:model="citizentype_id" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                                                <option value="">Select...</option>
+                                                @foreach($citizentypes as $citizentype)
+                                                <option value="{{$citizentype->id}}">{{$citizentype->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <x-jet-input-error for="citizentype_id" class="mt-2" />
                                         </div>
                                     </div>
 

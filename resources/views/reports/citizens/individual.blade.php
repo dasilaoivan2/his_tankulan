@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Household Information System</title>
+    <link href="{{asset('storage/logo/tankulan_logo.png')}}" rel="icon">
 </head>
 <style>
     body {
@@ -50,6 +51,12 @@
     .border {
         border: solid black 1px;
         border-collapse: collapse;
+    }
+
+    .border-graylight {
+        border: solid gray 0.5px;
+        border-collapse: collapse;
+        padding: 2px;
     }
 
     .content {
@@ -278,7 +285,7 @@
 
                 </tr>
 
-            
+
                 <tr>
                     <td class="font-normal bold">Birthdate:</td>
                     <td>{{\Carbon\Carbon::parse($citizen->birthdate)->format('F d, Y')}}</td>
@@ -287,7 +294,7 @@
                     <td width="100px"></td>
 
                 </tr>
-         
+
                 <tr>
                     <td class="font-normal bold">Contact No.:</td>
                     <td width="100px">{{$citizen->contact_no}}</td>
@@ -300,6 +307,7 @@
 
 
 
+
             <table>
                 <tr>
                     <td class="font-normal bold">Permanent Address:</td>
@@ -307,63 +315,71 @@
                 </tr>
 
             </table>
+
             <br>
 
+            <div class="border-graylight">
+                <table>
+                    <tr>
+                        <td class="font-normal bold">Category:</td>
+                    </tr>
+                </table>
 
-            <table>
-                <tr>
-                    <td class="font-normal bold">Category:</td>
-                </tr>
-            </table>
 
-            <table st style="margin-left: 20px;">
-                <tr>
-                    @if($citizen->categories->count() > 0)
-                    @foreach($citizen->categories as $category)
-                    <td class="font-normal">{{$category->name}}</td>
-                    @endforeach
-                    @else
-                    <td class="font-normal bolder">No category</td>
-                    @endif
-                </tr>
-            </table>
+                <table style="margin-left: 20px;">
+                    <tr>
+                        @if($citizen->categories->count() > 0)
+                        @foreach($citizen->categories as $category)
+                        <td class="font-normal">{{$category->name}}</td>
+                        @endforeach
+                        @else
+                        <td class="font-normal bolder">No category</td>
+                        @endif
+                    </tr>
+                </table>
+            </div>
+            <br>
 
-            <table>
-                <tr>
-                    <td class="font-normal bold">Programs:</td>
-                </tr>
-            </table>
+            <div class="border-graylight">
+                <table>
+                    <tr>
+                        <td class="font-normal bold">Programs:</td>
+                    </tr>
+                </table>
 
-            <table st style="margin-left: 20px;">
-                <tr>
-                    @if($citizen->programs->count() > 0)
-                    @foreach($citizen->programs as $program)
-                    <td class="font-normal">{{$program->name}}</td>
-                    @endforeach
-                    @else
-                    <td class="font-normal bolder">No program benefit</td>
-                    @endif
-                </tr>
-            </table>
+                <table style="margin-left: 20px;">
+                    <tr>
+                        @if($citizen->programs->count() > 0)
+                        @foreach($citizen->programs as $program)
+                        <td class="font-normal">{{$program->name}}</td>
+                        @endforeach
+                        @else
+                        <td class="font-normal bolder">No program benefit</td>
+                        @endif
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div class="border-graylight">
+                <table>
+                    <tr>
+                        <td class="font-normal bold">Pending Cases:</td>
+                    </tr>
+                </table>
 
-            <table>
-                <tr>
-                    <td class="font-normal bold">Pending Cases:</td>
-                </tr>
-            </table>
+                <table st style="margin-left: 20px;">
+                    <tr>
+                        @if($citizen->pendingcases->count() > 0)
+                        @foreach($citizen->pendingcases as $pendingcase)
+                        <td class="font-normal">{{$pendingcase->name}}</td>
+                        @endforeach
+                        @else
+                        <td class="font-normal bolder">No pending case</td>
+                        @endif
+                    </tr>
+                </table>
 
-            <table st style="margin-left: 20px;">
-                <tr>
-                    @if($citizen->pendingcases->count() > 0)
-                    @foreach($citizen->pendingcases as $pendingcase)
-                    <td class="font-normal">{{$pendingcase->name}}</td>
-                    @endforeach
-                    @else
-                    <td class="font-normal bolder">No pending case</td>
-                    @endif
-                </tr>
-            </table>
-
+            </div>
 
 
 

@@ -47,7 +47,7 @@
                     <input type="radio" id="cases" wire:model="radio_select" value="3" class="hidden peer">
                     <label for="cases" class="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <div class="block">
-                            <div class="w-full text-lg font-semibold">Cases</div>
+                            <div class="w-full text-lg font-semibold">Complaints</div>
                             <div class="w-full">{{$pendingcase_count}}</div>
                         </div>
                         <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -58,6 +58,7 @@
             </ul>
 
             @if($radio_select == 1)
+            <br>
             <div class="mb-4">
                 <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Please select categories</h3>
                 <ul class="grid gap-6 grid-cols-3 md:grid-cols-6 items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -74,7 +75,7 @@
             </div>
 
             @elseif($radio_select == 2)
-
+            <br>
             <div class="mb-4">
                 <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Please select programs</h3>
                 <ul class="grid gap-6 grid-cols-3 md:grid-cols-6 items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -91,8 +92,9 @@
             </div>
 
             @elseif($radio_select == 3)
+            <br>
             <div class="mb-4">
-                <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Please select cases</h3>
+                <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Please select complaints</h3>
                 <ul class="grid gap-6 grid-cols-3 md:grid-cols-6 items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     @foreach($pendingcases as $pendingcase)
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">

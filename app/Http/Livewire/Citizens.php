@@ -7,11 +7,13 @@ use App\Models\Citizen;
 use App\Models\Citizencategory;
 use App\Models\Citizenpendingcase;
 use App\Models\Citizenprogram;
+use App\Models\Citizentype;
 use App\Models\Familyrole;
 use App\Models\Gender;
 use App\Models\Household;
 use App\Models\Pendingcase;
 use App\Models\Program;
+use App\Models\Work;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -26,6 +28,9 @@ class Citizens extends Component
 
     public $programs, $genders, $familyroles, $pendingcases, $categories;
     public $house;
+
+    public $works, $citizentypes;
+    public $work_id, $citizentype_id;
 
     public $cat = [];
     public $category_id = [];
@@ -57,12 +62,14 @@ class Citizens extends Component
         $this->genders = Gender::all();
         $this->familyroles = Familyrole::all();
         $this->pendingcases = Pendingcase::all();
+        $this->works = Work::all();
+        $this->citizentypes = Citizentype::all();
         
         
         return view('livewire.citizens',['citizens' => Citizen::select('citizens.*')->where('citizens.lastname','LIKE','%'.$this->searchToken.'%')
             ->orWhere('citizens.firstname','LIKE','%'.$this->searchToken.'%')
             ->orderBy('household_id', 'ASC')
-            ->paginate(10, ['*'], 'citizenspagination'), 'households' => Household::where('residence_name', 'LIKE', '%' . $this->searchHousehold . '%')->paginate(25, ['*'], 'householdspagination')]);
+            ->paginate(50, ['*'], 'citizenspagination'), 'households' => Household::where('residence_name', 'LIKE', '%' . $this->searchHousehold . '%')->paginate(25, ['*'], 'householdspagination')]);
     }
 
     public function openCreate()
@@ -108,6 +115,8 @@ class Citizens extends Component
         $this->photo = '';
         $this->filename = '';
         $this->citizen_id = '';
+        $this->work_id = '';
+        $this->citizentype_id = '';
 
 
         $this->resetArrayCheckbox();
@@ -194,6 +203,9 @@ class Citizens extends Component
             'birthdate' => 'required',
             'gender_id' => 'required',
             'familyrole_id' => 'required',
+            'household_id' => 'required',
+            'work_id' => 'required',
+            'citizentype_id' => 'required',
         ],
         [
             'firstname.required' => 'Required Field',
@@ -201,6 +213,9 @@ class Citizens extends Component
             'birthdate.required' => 'Required Field',
             'gender_id.required' => 'Required Field',
             'familyrole_id.required' => 'Required Field',
+            'household_id.required' => 'Please select household',
+            'work_id.required' => 'Please select Nature of Work',
+            'citizentype_id.required' => 'Please select Type of Resident',
         ]);
 
             
@@ -231,6 +246,8 @@ class Citizens extends Component
                 'permanent_address' => $this->permanent_address,
                 'email' => $this->email,
                 'familyrole_id' => $this->familyrole_id,
+                'work_id' => $this->work_id,
+                'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto
             ]);
 
@@ -289,6 +306,8 @@ class Citizens extends Component
         $this->permanent_address = $citizen->permanent_address;
         $this->email = $citizen->email;
         $this->familyrole_id = $citizen->familyrole_id;
+        $this->work_id = $citizen->work_id;
+        $this->citizentype_id = $citizen->citizentype_id;
         $this->photo = null;
         $this->filename = $citizen->photo;
 
@@ -374,6 +393,9 @@ class Citizens extends Component
             'birthdate' => 'required',
             'gender_id' => 'required',
             'familyrole_id' => 'required',
+            'household_id' => 'required',
+            'work_id' => 'required',
+            'citizentype_id' => 'required',
         ],
         [
             'firstname.required' => 'Required Field',
@@ -381,6 +403,9 @@ class Citizens extends Component
             'birthdate.required' => 'Required Field',
             'gender_id.required' => 'Required Field',
             'familyrole_id.required' => 'Required Field',
+            'household_id.required' => 'Please select household',
+            'work_id.required' => 'Please select Nature of Work',
+            'citizentype_id.required' => 'Please select Type of Resident',
         ]);
 
             
@@ -417,6 +442,8 @@ class Citizens extends Component
                 'permanent_address' => $this->permanent_address,
                 'email' => $this->email,
                 'familyrole_id' => $this->familyrole_id,
+                'work_id' => $this->work_id,
+                'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto
             ]);
     

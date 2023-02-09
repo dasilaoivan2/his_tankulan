@@ -39,7 +39,10 @@
                             <th class="px-4 py-2 w-20">No.</th>
                             <th class="px-4 py-2 w-20">DB ID</th>
                             <th class="px-4 py-2">Fullname</th>
+                            <th class="px-4 py-2">Birthdate</th>
+                            <th class="px-4 py-2">Age</th>
                             <th class="px-4 py-2">Household Name</th>
+                            <th class="px-4 py-2">Zone</th>
                             <th width="230px" class="px-4 py-2">Action</th>
                         </tr>
                     </thead>
@@ -52,7 +55,10 @@
                             <td class="border px-4 py-2">{{$temp}}</td>
                             <td class="border px-4 py-2">{{ $citizen->id}}</td>
                             <td class="border px-4 py-2">{{$citizen->firstname}} @if($citizen->middlename != NULL){{$citizen->middlename[0]}}. @else @endif {{$citizen->lastname}} {{$citizen->suffixname}}</td>
+                            <td class="border px-4 py-2">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
+                            <td class="border px-4 py-2">{{ $citizen->age()}}</td>
                             <td class="border px-4 py-2">{{ $citizen->household->residence_name}}</td>
+                            <td class="border px-4 py-2">{{ $citizen->household->zone->name}}</td>
                             <td class="border">
                                 <x-jet-button class="m-2" wire:click="edit({{$citizen->id}})">
                                     {{ __('Edit') }}

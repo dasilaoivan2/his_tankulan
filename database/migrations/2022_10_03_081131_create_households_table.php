@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('residence_name');
             $table->text('address_detail');
             $table->double('income', 8, 2);
+            $table->boolean('cr');
             $table->timestamps();
         });
     }

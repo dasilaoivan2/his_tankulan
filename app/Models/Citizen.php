@@ -10,7 +10,7 @@ class Citizen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['household_id', 'firstname', 'middlename', 'lastname', 'suffixname', 'birthdate', 'gender_id', 'contact_no', 'permanent_address', 'email', 'familyrole_id', 'photo'];
+    protected $fillable = ['household_id', 'firstname', 'middlename', 'lastname', 'suffixname', 'birthdate', 'gender_id', 'contact_no', 'permanent_address', 'email', 'familyrole_id', 'citizentype_id', 'work_id', 'photo'];
 
     public function categories(){
         return $this->belongsToMany('App\Models\Category', 'citizencategories', 'citizen_id', 'category_id');
@@ -43,6 +43,14 @@ class Citizen extends Model
         return $this->belongsTo('App\Models\Household');
     }
 
+    public function work(){
+        return $this->belongsTo('App\Models\Work');
+    }
+
+    public function citizentype(){
+        return $this->belongsTo('App\Models\Citizentype');
+    }
+
     public function gender(){
         return $this->belongsTo('App\Models\Gender');
     }
@@ -50,6 +58,7 @@ class Citizen extends Model
     public function familyrole(){
         return $this->belongsTo('App\Models\Familyrole');
     }
+    
 
     public function fullname()
     {
