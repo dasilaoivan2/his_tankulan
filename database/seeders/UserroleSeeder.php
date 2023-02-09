@@ -21,7 +21,7 @@ class UserroleSeeder extends Seeder
         ];
 
         foreach ($roles as $role){
-            DB::table('Userroles')->insert([
+            DB::table('userroles')->insert([
                 'name' => $role['name']
             ]);
         }
