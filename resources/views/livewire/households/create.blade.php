@@ -106,7 +106,7 @@
                         </div>
                         <div class="flex items-center">
                             <input id="link-radio" type="radio" wire:model.debounce="cr" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="link-radio" class="ml-2 mr-6 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                            <label style="margin-right: 1.5rem;" for="link-radio" class="ml-2 mr-6 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
 
                             <input id="link-radio2" type="radio" wire:model.debounce="cr" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="link-radio2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
