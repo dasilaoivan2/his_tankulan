@@ -232,14 +232,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
-                                <div class="mb-2">
-                                    <x-jet-label for="permanent_address" value="{{ __('Permanent Address') }}" />
 
-                                    <x-jet-input id="permanent_address" type="text" class="mt-1 block w-full" wire:model="permanent_address" />
-                                    <x-jet-input-error for="permanent_address" class="mt-2" />
-                                </div>
-                            </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="mb-2">
                                     <x-jet-label for="work_id" value="{{ __('Nature of Work') }}" />
@@ -267,6 +260,19 @@
                                     <x-jet-input-error for="citizentype_id" class="mt-2" />
                                 </div>
                             </div>
+
+                            @if($citizentype_id == 1)
+                            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                                <div class="mb-2">
+                                    <x-jet-label for="permanent_address" value="{{ __('Permanent Address') }}" />
+
+                                    <x-jet-input id="permanent_address" type="text" class="mt-1 block w-full" wire:model="permanent_address" />
+                                    <x-jet-input-error for="permanent_address" class="mt-2" />
+                                </div>
+                            </div>
+                            @endif
+                            <br>
+
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class="mb-2">
                                     <x-jet-label for="photo" value="{{ __('Photo') }}" />
