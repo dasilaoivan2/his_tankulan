@@ -11,5 +11,5 @@ class Agebracket extends Model
 
     protected $fillable = ['name', 'from', 'to'];
 
-    
+   
 }
