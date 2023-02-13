@@ -48,6 +48,9 @@ class Citizens extends Component
 
     public $isEdit = 0;
 
+    public $trapMessage = false;
+    public $citizen_trapmessage;
+
     public $confirmSave = false;
     public $confirmUpdate = false;
     public $confirmDelete = false;
@@ -121,6 +124,8 @@ class Citizens extends Component
 
         $this->resetArrayCheckbox();
         $this->viewCaseForm = false;
+        $this->trapMessage = false;
+        
     }
 
     public function confirmCancel()
@@ -218,8 +223,27 @@ class Citizens extends Component
             'citizentype_id.required' => 'Please select Type of Resident',
         ]);
 
-            
+        $citizenTrap = Citizen::select('citizens.*')
+        ->where('citizens.lastname', $this->lastname)
+        ->where('citizens.firstname', $this->firstname)
+        ->where('citizens.birthdate', $this->birthdate)
+        ->where('citizens.suffixname', $this->suffixname)
+        ->first();
+
+        if($citizenTrap != NULL){
+
+            $this->citizen_trapmessage = Citizen::find($citizenTrap->id);
+
+            $this->trapMessage = true;
+
+        }
+        else{
+
             $this->confirmSave = true;
+        }
+
+            
+           
     }
 
     public function store()

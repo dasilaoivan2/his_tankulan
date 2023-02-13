@@ -31,6 +31,10 @@
             @include('livewire.citizens.confirmdelete')
             @include('livewire.citizens.confirmcancel')
             @include('livewire.citizens.confirmcanceledit')
+            
+            @if($citizen_trapmessage)
+                @include('livewire.households.trapmessage')
+            @endif
 
             <div style="overflow-y: hidden; max-width: 100%;">
                 <table class="table-auto w-full text-center">

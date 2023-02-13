@@ -56,6 +56,10 @@ class Households extends Component
 
     public $viewCaseForm = false;
 
+    public $trapMessage = false;
+    public $citizen_trapmessage;
+
+
 
     public $types, $classifications, $zones, $barangays, $categories, $programs, $genders, $familyroles, $pendingcases;
     public $work_id, $citizentype_id;
@@ -219,6 +223,7 @@ class Households extends Component
         $this->updateCitizen = false;
         $this->updateCitizenInEditFormBtn = false;
         $this->viewCaseForm = false;
+        $this->trapMessage = false;
         
     }
     public function resetArrayCheckbox()
@@ -251,6 +256,25 @@ class Households extends Component
             'work_id.required' => 'Please select Nature of Work',
             'citizentype_id.required' => 'Please select Type of Resident',
         ]);
+
+        $citizenTrap = Citizen::select('citizens.*')
+        ->where('citizens.lastname', $this->lastname)
+        ->where('citizens.firstname', $this->firstname)
+        ->where('citizens.birthdate', $this->birthdate)
+        ->where('citizens.suffixname', $this->suffixname)
+        ->first();
+
+        if($citizenTrap != NULL){
+
+            $this->citizen_trapmessage = Citizen::find($citizenTrap->id);
+
+            $this->trapMessage = true;
+
+        }
+        else{
+
+
+
         $familyrole = Familyrole::find($this->familyrole_id);
         $familyrole_name = $familyrole->name;
         
@@ -278,6 +302,7 @@ class Households extends Component
 
         $this->viewCaseForm = false;
         $this->clearCitizenField();
+        }
     }
 
     public function editCitizen($index)
@@ -358,6 +383,10 @@ class Households extends Component
             'work_id.required' => 'Please select Nature of Work',
             'citizentype_id.required' => 'Please select Type of Resident',
         ]);
+
+
+
+        
         $familyrole = Familyrole::find($this->familyrole_id);
         $familyrole_name = $familyrole->name;
         
@@ -890,9 +919,25 @@ class Households extends Component
             'work_id.required' => 'Please select Nature of Work',
             'citizentype_id.required' => 'Please select Type of Resident',
         ]);
-        
 
-        if($this->photo != NULL)
+        $citizenTrap = Citizen::select('citizens.*')
+        ->where('citizens.lastname', $this->lastname)
+        ->where('citizens.firstname', $this->firstname)
+        ->where('citizens.birthdate', $this->birthdate)
+        ->where('citizens.suffixname', $this->suffixname)
+        ->first();
+
+        if($citizenTrap != NULL){
+
+            $this->citizen_trapmessage = Citizen::find($citizenTrap->id);
+
+            $this->trapMessage = true;
+
+        }
+
+        else{
+            
+            if($this->photo != NULL)
             {
                 $nameofPhoto = md5($this->photo . microtime()).'.'.$this->photo->extension();
                 $this->photo->storeAs('public/photo', $nameofPhoto);
@@ -948,6 +993,11 @@ class Households extends Component
 
             $this->citizens = Citizen::where('household_id', $this->household_id)->get();
             $this->clearCitizenField();
+
+        }
+        
+
+        
 
 
     }

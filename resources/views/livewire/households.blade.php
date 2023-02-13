@@ -32,6 +32,10 @@
             @include('livewire.households.confirmdelete')
             @include('livewire.households.confirmcancel')
             @include('livewire.households.confirmcanceledit')
+            
+            @if($citizen_trapmessage)
+                @include('livewire.households.trapmessage')
+            @endif
 
             @include('livewire.households.zonebrgy.addzonebrgy')
             @include('livewire.households.zonebrgy.editzonebrgy')
