@@ -29,6 +29,8 @@ class Citizens extends Component
     public $programs, $genders, $familyroles, $pendingcases, $categories;
     public $house;
 
+    public $deceased, $yearlive;
+
     public $works, $citizentypes;
     public $work_id, $citizentype_id;
 
@@ -120,6 +122,8 @@ class Citizens extends Component
         $this->citizen_id = '';
         $this->work_id = '';
         $this->citizentype_id = '';
+        $this->deceased = '';
+        $this->yearlive = '';
 
 
         $this->resetArrayCheckbox();
@@ -211,6 +215,7 @@ class Citizens extends Component
             'household_id' => 'required',
             'work_id' => 'required',
             'citizentype_id' => 'required',
+            'yearlive' => 'required|digits:4|integer|min:1900|max:'.(date('Y')),
         ],
         [
             'firstname.required' => 'Required Field',
@@ -221,6 +226,7 @@ class Citizens extends Component
             'household_id.required' => 'Please select household',
             'work_id.required' => 'Please select Nature of Work',
             'citizentype_id.required' => 'Please select Type of Resident',
+            'yearlive.required' => 'Please input exact year',
         ]);
 
         $citizenTrap = Citizen::select('citizens.*')
@@ -270,6 +276,8 @@ class Citizens extends Component
                 'permanent_address' => $this->permanent_address,
                 'email' => $this->email,
                 'familyrole_id' => $this->familyrole_id,
+                'deceased' => $this->deceased,
+                'yearlive' => $this->yearlive,
                 'work_id' => $this->work_id,
                 'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto
@@ -330,6 +338,8 @@ class Citizens extends Component
         $this->permanent_address = $citizen->permanent_address;
         $this->email = $citizen->email;
         $this->familyrole_id = $citizen->familyrole_id;
+        $this->deceased = $citizen->deceased;
+        $this->yearlive = $citizen->yearlive;
         $this->work_id = $citizen->work_id;
         $this->citizentype_id = $citizen->citizentype_id;
         $this->photo = null;
@@ -420,6 +430,7 @@ class Citizens extends Component
             'household_id' => 'required',
             'work_id' => 'required',
             'citizentype_id' => 'required',
+            'yearlive' => 'required|digits:4|integer|min:1900|max:'.(date('Y')),
         ],
         [
             'firstname.required' => 'Required Field',
@@ -430,6 +441,7 @@ class Citizens extends Component
             'household_id.required' => 'Please select household',
             'work_id.required' => 'Please select Nature of Work',
             'citizentype_id.required' => 'Please select Type of Resident',
+            'yearlive.required' => 'Please input exact year',
         ]);
 
             
@@ -466,6 +478,8 @@ class Citizens extends Component
                 'permanent_address' => $this->permanent_address,
                 'email' => $this->email,
                 'familyrole_id' => $this->familyrole_id,
+                'deceased' => $this->deceased,
+                'yearlive' => $this->yearlive,
                 'work_id' => $this->work_id,
                 'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto

@@ -10,7 +10,7 @@ class Citizen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['household_id', 'firstname', 'middlename', 'lastname', 'suffixname', 'birthdate', 'gender_id', 'contact_no', 'permanent_address', 'email', 'familyrole_id', 'citizentype_id', 'work_id', 'photo'];
+    protected $fillable = ['household_id', 'firstname', 'middlename', 'lastname', 'suffixname', 'birthdate', 'gender_id', 'contact_no', 'permanent_address', 'email', 'familyrole_id', 'citizentype_id', 'work_id', 'photo', 'deceased', 'yearlive'];
 
     public function categories(){
         return $this->belongsToMany('App\Models\Category', 'citizencategories', 'citizen_id', 'category_id');

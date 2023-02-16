@@ -324,6 +324,34 @@
                                     </div>
                                     @endif
                                     <br>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="mb-2">
+                                            <x-jet-label for="deceased" value="{{ __('Select if deceased') }}" />
+
+                                            <div class="flex items-center">
+                                           
+                                                
+                                                <input type="checkbox" class="font-bolder rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="deceased" wire:model="deceased" value="1">
+                                                <label for="deceased" class="ml-2 mr-6 block font-bold text-sm text-red-700">Deceased</label>
+
+                                            
+                                            </div>
+
+                                            
+
+                                        
+                                            <!-- {{print_r($deceased)}} -->
+                                            <x-jet-input-error for="deceased" class="mt-2" />
+                                            
+                                        </div>
+                                        <div class="mb-2">
+                                            <x-jet-label for="yearlive" value="{{ __('Year as a resident') }}" />
+
+                                            <x-jet-input id="yearlive" type="number" class="mt-1 block w-full" wire:model="yearlive" placeholder="YYYY" />
+                                            <x-jet-input-error for="yearlive" class="mt-2" />
+                                        </div>
+                                    </div>
+                                    <br>
 
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div class="mb-2">
