@@ -93,6 +93,10 @@
                                     {{ __('Citizen Type') }}
                                 </x-jet-dropdown-link>
 
+                                <x-jet-dropdown-link href="{{route('ownerships')}}" :active="request()->routeIs('ownerships')">
+                                    {{ __('Ownerships') }}
+                                </x-jet-dropdown-link>
+
                                 <div class="border-t border-gray-100"></div>
                             </div>
                         </x-slot>

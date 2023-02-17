@@ -13,6 +13,7 @@ use App\Models\Classification;
 use App\Models\Familyrole;
 use App\Models\Gender;
 use App\Models\Household;
+use App\Models\Ownership;
 use App\Models\Pendingcase;
 use App\Models\Program;
 use App\Models\Type;
@@ -45,7 +46,7 @@ class Households extends Component
 
 
     // citizen
-    public $firstname, $middlename, $lastname, $suffixname, $birthdate, $gender_id, $contact_no, $permanent_address, $email, $familyrole_id, $photo, $filename, $citizen_id, $deceased, $yearlive;
+    public $firstname, $middlename, $lastname, $suffixname, $birthdate, $gender_id, $contact_no, $permanent_address, $email, $familyrole_id, $photo, $filename, $citizen_id, $deceased = 0, $yearlive;
     public $citizenlists = [], $index, $updateCitizen = false;
     public $cat = [];
     public $category_id = [];
@@ -80,6 +81,8 @@ class Households extends Component
     public $createZoneBrgy = false;
     public $editZoneBrgy = false;
 
+    public $ownerships, $ownership_id;
+
     
     
 
@@ -96,6 +99,7 @@ class Households extends Component
         $this->pendingcases = Pendingcase::all();
         $this->works = Work::all();
         $this->citizentypes = Citizentype::all();
+        $this->ownerships = Ownership::all();
 
                 
         
@@ -217,7 +221,7 @@ class Households extends Component
         $this->citizen_id = '';
         $this->work_id = '';
         $this->citizentype_id = '';
-        $this->deceased = '';
+        $this->deceased = 0;
         $this->yearlive = '';
         
         
@@ -531,6 +535,7 @@ class Households extends Component
         $this->household_id = '';
         $this->savebrgy = '';
         $this->cr = '';
+        $this->ownership_id = '';
 
 
         $this->zoneBarangaylists = [];
@@ -565,7 +570,8 @@ class Households extends Component
                 'zone_id' => 'required',
                 'address_detail' => 'required',
                 'income' => 'required',
-                'cr' => 'required'
+                'cr' => 'required',
+                'ownership_id' => 'required',
             ],[
                 'residence_name.required' => 'Field is required.',
                 'type_id.required' => 'Field is required.',
@@ -574,7 +580,8 @@ class Households extends Component
                 'zone_id.required' => 'Field is required.',
                 'address_detail.required' => 'Field is required.',
                 'income.required' => 'Field is required.',
-                'cr.required' => 'Please check button.'
+                'cr.required' => 'Please check button.',
+                'ownership_id.required' => 'Please select ownership.',
             ]);
 
             
@@ -592,7 +599,8 @@ class Households extends Component
             'zone_id' => $this->zone_id,
             'address_detail' => $this->address_detail,
             'income' => $this->income,
-            'cr' => $this->cr
+            'cr' => $this->cr,
+            'ownership_id' => $this->ownership_id
         ]);
 
         
@@ -678,6 +686,7 @@ class Households extends Component
         $this->address_detail = $household->address_detail;
         $this->income = $household->income;
         $this->cr = $household->cr;
+        $this->ownership_id = $household->ownership_id;
         
         $this->citizens = Citizen::where('household_id', $household->id)->get();
 
@@ -1055,7 +1064,8 @@ class Households extends Component
                 'zone_id' => 'required',
                 'address_detail' => 'required',
                 'income' => 'required',
-                'cr' => 'required'
+                'cr' => 'required',
+                'ownership_id' => 'required',
             ],[
                 'residence_name.required' => 'Field is required.',
                 'type_id.required' => 'Field is required.',
@@ -1064,7 +1074,8 @@ class Households extends Component
                 'zone_id.required' => 'Field is required.',
                 'address_detail.required' => 'Field is required.',
                 'income.required' => 'Field is required.',
-                'cr.required' => 'Please check button.'
+                'cr.required' => 'Please check button.',
+                'ownership.required' => 'Please select ownership.',
             ]);
 
             
@@ -1083,7 +1094,8 @@ class Households extends Component
             'zone_id' => $this->zone_id,
             'address_detail' => $this->address_detail,
             'income' => $this->income,
-            'cr' => $this->cr
+            'cr' => $this->cr,
+            'ownership_id' => $this->ownership_id,
         ]);
 
 

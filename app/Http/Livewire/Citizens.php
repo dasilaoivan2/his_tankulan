@@ -29,7 +29,7 @@ class Citizens extends Component
     public $programs, $genders, $familyroles, $pendingcases, $categories;
     public $house;
 
-    public $deceased, $yearlive;
+    public $deceased = 0, $yearlive;
 
     public $works, $citizentypes;
     public $work_id, $citizentype_id;
@@ -122,7 +122,7 @@ class Citizens extends Component
         $this->citizen_id = '';
         $this->work_id = '';
         $this->citizentype_id = '';
-        $this->deceased = '';
+        $this->deceased = 0;
         $this->yearlive = '';
 
 

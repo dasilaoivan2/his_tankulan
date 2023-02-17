@@ -16,6 +16,7 @@ use App\Http\Livewire\Classifications;
 use App\Http\Livewire\Agebrackets;
 use App\Http\Livewire\Works;
 use App\Http\Livewire\Citizentypes;
+use App\Http\Livewire\Ownerships;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboards;
 use App\Http\Livewire\Familyroles;
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('agebrackets',Agebrackets::class)->middleware(['auth:sanctum', 'verified'])->name('agebrackets');
     Route::get('works',Works::class)->middleware(['auth:sanctum', 'verified'])->name('works');
     Route::get('citizentypes',Citizentypes::class)->middleware(['auth:sanctum', 'verified'])->name('citizentypes');
+    Route::get('ownerships',Ownerships::class)->middleware(['auth:sanctum', 'verified'])->name('ownerships');
     
     
     
