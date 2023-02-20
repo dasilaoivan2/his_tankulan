@@ -246,11 +246,25 @@
                     <td class="font-normal bold">Residence Name:</td>
                     <td>{{$household->residence_name}}</td>
                     <td width="50px"></td>
-                    <td class="font-normal bold">Income:</td>
+                    <td class="font-normal bold">Household Income:</td>
                     <td>{{$household->income}}</td>
                     <td width="50px"></td>
                     <td class="font-normal bold">Residents:</td>
                     <td>{{$household->citizens->count()}}</td>
+                </tr>
+
+            </table>
+
+            <table>
+                <tr>
+                    <td class="font-normal bold"></td>
+                    <td></td>
+                    <td width="200px"></td>
+                    <td width="150px" class="font-normal bold">Type of Ownership:</td>
+                    <td>{{$household->ownership->name}}</td>
+                    <td width="150px"></td>
+                    <td class="font-normal bold"></td>
+                    <td></td>
                 </tr>
 
             </table>
@@ -274,6 +288,9 @@
                     <td class="font-normal bold">Age</td>
                     <td class="font-normal bold">Gender</td>
                     <td class="font-normal bold">Role</td>
+                    <td class="font-normal bold">Occupation</td>
+                    <td width="60px" class="font-normal bold">Year as Resident</td>
+                    <td width="60px" class="font-normal bold">Montly Income</td>
                 </tr>
                 </thead>
 
@@ -282,12 +299,15 @@
                 @foreach($household->citizensOrderByRole as $citizen)
                 <?php $count++ ?>
                 <tr>
-                    <td class="font-normal" style="text-transform: uppercase;">{{$count}}</td>
-                    <td class="font-normal" style="text-transform: uppercase;">{{$citizen->fullnameLastname()}}</td>
-                    <td class="font-normal" style="text-transform: uppercase;">{{\Carbon\Carbon::parse($citizen->birthdate)->format('F d, Y')}}</td>
-                    <td class="font-normal" style="text-transform: uppercase;">{{$citizen->age()}}</td>
-                    <td class="font-normal" style="text-transform: uppercase;">{{$citizen->gender->name}}</td>
-                    <td class="font-normal" style="text-transform: uppercase;">{{$citizen->familyrole->name}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$count}}.</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$citizen->fullnameLastname()}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$citizen->age()}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$citizen->gender->name}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$citizen->familyrole->name}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">@if($citizen->work == NULL) @else{{$citizen->work->name}}@endif</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$citizen->yearlive}}</td>
+                    <td class="font-normal" style="text-transform: uppercase; border-bottom:solid 1px gray">{{$citizen->income}}</td>
                 </tr>
                 @endforeach
                 </tbody>

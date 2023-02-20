@@ -46,7 +46,7 @@ class Households extends Component
 
 
     // citizen
-    public $firstname, $middlename, $lastname, $suffixname, $birthdate, $gender_id, $contact_no, $permanent_address, $email, $familyrole_id, $photo, $filename, $citizen_id, $deceased = 0, $yearlive;
+    public $firstname, $middlename, $lastname, $suffixname, $birthdate, $gender_id, $contact_no, $permanent_address, $email, $familyrole_id, $photo, $filename, $citizen_id, $deceased = 0, $yearlive, $citizen_income;
     public $citizenlists = [], $index, $updateCitizen = false;
     public $cat = [];
     public $category_id = [];
@@ -223,6 +223,7 @@ class Households extends Component
         $this->citizentype_id = '';
         $this->deceased = 0;
         $this->yearlive = '';
+        $this->citizen_income = '';
         
         
         $this->resetArrayCheckbox();
@@ -306,7 +307,8 @@ class Households extends Component
             'programs' => $this->program_id,
             'pendingcases' => $this->pendingcase_id,
             'deceased' => $this->deceased,
-            'yearlive' => $this->yearlive
+            'yearlive' => $this->yearlive,
+            'income' => $this->citizen_income
             
         ];
 
@@ -336,6 +338,7 @@ class Households extends Component
         $this->citizentype_id = $citizenlist['citizentype_id'];
         $this->deceased = $citizenlist['deceased'];
         $this->yearlive = $citizenlist['yearlive'];
+        $this->citizen_income = $citizenlist['income'];
         $this->photo = $citizenlist['photo'];
 
         $this->category_id = $citizenlist['categories'];
@@ -420,6 +423,7 @@ class Households extends Component
             'citizentype_id' => $this->citizentype_id,
             'deceased' => $this->deceased,
             'yearlive' => $this->yearlive,
+            'income' => $this->citizen_income,
             'familyrole_name' => $familyrole_name,
             'photo' => $this->photo,
             'categories' => $this->category_id,
@@ -614,6 +618,15 @@ class Households extends Component
             else{
                 $nameofPhoto = NULL;
             }
+
+
+            if($citizenlist['income'] == NULL)
+            {
+                $citizen_income = 0;
+            }
+            else{
+                $citizen_income = $citizenlist['income'];
+            }
             
 
             $citizen = Citizen::create([
@@ -630,6 +643,7 @@ class Households extends Component
                 'familyrole_id' => $citizenlist['familyrole_id'],
                 'deceased' => $citizenlist['deceased'],
                 'yearlive' => $citizenlist['yearlive'],
+                'income' => $citizen_income,
                 'work_id' => $citizenlist['work_id'],
                 'citizentype_id' => $citizenlist['citizentype_id'],
                 'photo' => $nameofPhoto
@@ -712,6 +726,7 @@ class Households extends Component
         $this->familyrole_id = $citizen->familyrole_id;
         $this->deceased = $citizen->deceased;
         $this->yearlive = $citizen->yearlive;
+        $this->citizen_income = $citizen->income;
         $this->work_id = $citizen->work_id;
         $this->citizentype_id = $citizen->citizentype_id;
         $this->photo = null;
@@ -788,6 +803,14 @@ class Households extends Component
             }
             
             $citizen = Citizen::find($this->citizen_id);
+
+            if($this->citizen_income == NULL)
+            {
+                $citizen_income = 0;
+            }
+            else{
+                $citizen_income = $this->citizen_income;
+            }
             
             $citizen->update([
                 'firstname' => $this->firstname,
@@ -802,6 +825,7 @@ class Households extends Component
                 'familyrole_id' => $this->familyrole_id,
                 'deceased' => $this->deceased,
                 'yearlive' => $this->yearlive,
+                'income' => $citizen_income,
                 'work_id' => $this->work_id,
                 'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto
@@ -977,6 +1001,14 @@ class Households extends Component
                 $nameofPhoto = NULL;
             }
 
+        if($this->citizen_income == NULL)
+        {
+            $citizen_income = 0;
+        }
+        else{
+            $citizen_income = $this->citizen_income;
+        }
+
         $citizen = Citizen::create([
             'household_id' => $this->household_id,
             'firstname' => $this->firstname,
@@ -991,6 +1023,7 @@ class Households extends Component
             'familyrole_id' => $this->familyrole_id,
             'deceased' => $this->deceased,
             'yearlive' => $this->yearlive,
+            'income' => $citizen_income,
             'work_id' => $this->work_id,
             'citizentype_id' => $this->citizentype_id,
             'photo' => $nameofPhoto,

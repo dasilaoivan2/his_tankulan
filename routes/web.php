@@ -6,11 +6,13 @@ use App\Http\Livewire\Citizenzonereports;
 use App\Http\Livewire\Citizenagerangereports;
 use App\Http\Livewire\Citizenworkreports;
 use App\Http\Livewire\Citizentypereports;
+use App\Http\Livewire\Citizenownershipreports;
 use App\Http\Livewire\Householdreports;
 use App\Http\Livewire\Householdtypereports;
 use App\Http\Livewire\Householdclassreports;
 use App\Http\Livewire\Householdzonereports;
 use App\Http\Livewire\Householdcrreports;
+use App\Http\Livewire\Householdownershipreports;
 use App\Http\Livewire\Citizens;
 use App\Http\Livewire\Classifications;
 use App\Http\Livewire\Agebrackets;
@@ -83,12 +85,14 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('citizenagerangereports',Citizenagerangereports::class)->middleware(['auth:sanctum', 'verified'])->name('citizenagerangereports');
     Route::get('citizenworkreports',Citizenworkreports::class)->middleware(['auth:sanctum', 'verified'])->name('citizenworkreports');
     Route::get('citizentypereports',Citizentypereports::class)->middleware(['auth:sanctum', 'verified'])->name('citizentypereports');
+    Route::get('citizenownershipreports',Citizenownershipreports::class)->middleware(['auth:sanctum', 'verified'])->name('citizenownershipreports');
     
     Route::get('householdreports',Householdreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdreports');
     Route::get('householdtypereports',Householdtypereports::class)->middleware(['auth:sanctum', 'verified'])->name('householdtypereports');
     Route::get('householdclassreports',Householdclassreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdclassreports');
     Route::get('householdzonereports',Householdzonereports::class)->middleware(['auth:sanctum', 'verified'])->name('householdzonereports');
     Route::get('householdcrreports',Householdcrreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdcrreports');
+    Route::get('householdownershipreports',Householdownershipreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdownershipreports');
     
     
     
@@ -112,6 +116,8 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('citizens/zone/{zone_id}/work/{work_id}', 'App\Http\Controllers\CitizensReportController@zonework')->name('citizens.zonework.reports');
     Route::get('citizens/citizentype/{citizentype_id}', 'App\Http\Controllers\CitizensReportController@citizentype')->name('citizens.citizentype.reports');
     Route::get('citizens/zone/{zone_id}/citizentype/{citizentype_id}', 'App\Http\Controllers\CitizensReportController@zonecitizentype')->name('citizens.zonecitizentype.reports');
+    Route::get('citizens/ownership/{ownership_id}', 'App\Http\Controllers\CitizensReportController@ownership')->name('citizens.ownership.reports');
+    Route::get('citizens/zone/{zone_id}/ownership/{ownership_id}', 'App\Http\Controllers\CitizensReportController@zoneownership')->name('citizens.zoneownership.reports');
     
     
     Route::get('households/all/reports', 'App\Http\Controllers\HouseholdsReportController@allhousehold')->name('households.all.reports');
@@ -121,5 +127,7 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('households/reports/zone/{zone_id}', 'App\Http\Controllers\HouseholdsReportController@householdzone')->name('households.reports.zone');
     Route::get('households/reports/cr/{cr}', 'App\Http\Controllers\HouseholdsReportController@householdcr')->name('households.reports.cr');
     Route::get('households/zone/{zone_id}/reports/cr/{cr}', 'App\Http\Controllers\HouseholdsReportController@householdzonecr')->name('households.reports.zonecr');
+    Route::get('households/reports/ownership/{ownership_id}', 'App\Http\Controllers\HouseholdsReportController@householdownership')->name('households.reports.ownership');
+    Route::get('households/zone/{zone_id}/reports/ownership/{ownership_id}', 'App\Http\Controllers\HouseholdsReportController@householdzoneownership')->name('households.reports.zoneownership');
 });
 

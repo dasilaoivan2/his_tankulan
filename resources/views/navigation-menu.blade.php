@@ -86,7 +86,7 @@
                                 </x-jet-dropdown-link>
 
                                 <x-jet-dropdown-link href="{{route('works')}}" :active="request()->routeIs('works')">
-                                    {{ __('Nature of Work') }}
+                                    {{ __('Occupations') }}
                                 </x-jet-dropdown-link>
 
                                 <x-jet-dropdown-link href="{{route('citizentypes')}}" :active="request()->routeIs('citizentypes')">
@@ -142,6 +142,11 @@
                                         {{ __('Type') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('citizenownershipreports') }}" :active="request()->routeIs('citizenownershipreports')">
+                                        {{ __('Ownership') }}
+                                    </x-jet-dropdown-link>
+                                    
+
                                     
 
                                 </div>
@@ -170,6 +175,10 @@
 
                                     <x-jet-dropdown-link href="{{route('householdcrreports')}}" :active="request()->routeIs('householdcrreports')">
                                         {{ __('Comfort Room') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="{{route('householdownershipreports')}}" :active="request()->routeIs('householdownershipreports')">
+                                        {{ __('Ownerships') }}
                                     </x-jet-dropdown-link>
 
 

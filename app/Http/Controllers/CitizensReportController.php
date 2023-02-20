@@ -6,6 +6,7 @@ use App\Models\Agebracket;
 use App\Models\Category;
 use App\Models\Citizen;
 use App\Models\Citizentype;
+use App\Models\Ownership;
 use App\Models\Pendingcase;
 use App\Models\Program;
 use App\Models\Work;
@@ -411,6 +412,39 @@ class CitizensReportController extends Controller
         ->get();
 
         return view('reports.citizens.zonetype', compact('citizens', 'citizentype', 'zone'));
+    }
+
+    public function ownership($ownership_id)
+    {
+        $ownership = Ownership::find($ownership_id);
+
+       
+
+        $citizens = Citizen::select('citizens.*')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('households.ownership_id', $ownership->id)
+        ->orderBy('lastname', 'ASC')
+        ->get();
+
+        return view('reports.citizens.ownership', compact('citizens', 'ownership'));
+    }
+
+    public function zoneownership($zone_id, $ownership_id)
+    {
+        $ownership = Ownership::find($ownership_id);
+        $zone = Zone::find($zone_id);
+
+
+        $citizens = Citizen::select('citizens.*')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('zones.id', $zone_id)
+        ->where('households.ownership_id', $ownership->id)
+        ->orderBy('lastname', 'ASC')
+        ->get();
+
+        return view('reports.citizens.zoneownership', compact('citizens', 'ownership', 'zone'));
     }
 
 }

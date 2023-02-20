@@ -24,7 +24,7 @@ class Citizens extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $firstname, $middlename, $lastname, $suffixname, $birthdate, $gender_id, $contact_no, $permanent_address, $email, $familyrole_id, $photo, $filename, $citizen_id, $household_id;
+    public $firstname, $middlename, $lastname, $suffixname, $birthdate, $gender_id, $contact_no, $permanent_address, $email, $familyrole_id, $photo, $filename, $citizen_id, $household_id, $income;
 
     public $programs, $genders, $familyroles, $pendingcases, $categories;
     public $house;
@@ -124,6 +124,7 @@ class Citizens extends Component
         $this->citizentype_id = '';
         $this->deceased = 0;
         $this->yearlive = '';
+        $this->income = '';
 
 
         $this->resetArrayCheckbox();
@@ -254,13 +255,21 @@ class Citizens extends Component
 
     public function store()
     {
-        if($this->photo != NULL)
+            if($this->photo != NULL)
             {
                 $nameofPhoto = md5($this->photo . microtime()).'.'.$this->photo->extension();
                 $this->photo->storeAs('public/photo', $nameofPhoto);
             }
             else{
                 $nameofPhoto = NULL;
+            }
+
+            if($this->income == NULL)
+            {
+                $citizen_income = 0;
+            }
+            else{
+                $citizen_income = $this->income;
             }
             
 
@@ -278,6 +287,7 @@ class Citizens extends Component
                 'familyrole_id' => $this->familyrole_id,
                 'deceased' => $this->deceased,
                 'yearlive' => $this->yearlive,
+                'income' => $citizen_income,
                 'work_id' => $this->work_id,
                 'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto
@@ -340,6 +350,7 @@ class Citizens extends Component
         $this->familyrole_id = $citizen->familyrole_id;
         $this->deceased = $citizen->deceased;
         $this->yearlive = $citizen->yearlive;
+        $this->income = $citizen->income;
         $this->work_id = $citizen->work_id;
         $this->citizentype_id = $citizen->citizentype_id;
         $this->photo = null;
@@ -465,6 +476,14 @@ class Citizens extends Component
             }
             
             $citizen = Citizen::find($this->citizen_id);
+
+            if($this->income == NULL)
+            {
+                $citizen_income = 0;
+            }
+            else{
+                $citizen_income = $this->income;
+            }
             
             $citizen->update([
                 'household_id' => $this->household_id,
@@ -480,6 +499,7 @@ class Citizens extends Component
                 'familyrole_id' => $this->familyrole_id,
                 'deceased' => $this->deceased,
                 'yearlive' => $this->yearlive,
+                'income' => $citizen_income,
                 'work_id' => $this->work_id,
                 'citizentype_id' => $this->citizentype_id,
                 'photo' => $nameofPhoto

@@ -1,6 +1,6 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Nature of Work') }}
+        {{ __('Occupations') }}
     </h2>
 </x-slot>
 
@@ -18,7 +18,7 @@
             @endif
 
             <x-jet-button class="m-4" wire:click="create()">
-                {{ __('Add Work') }}
+                {{ __('Add Occupation') }}
             </x-jet-button>
 
             <input wire:model="searchToken" id="searchToken" class="border-2 rounded-lg border-yellow-900 text-black-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Search here...">

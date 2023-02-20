@@ -1,10 +1,10 @@
 <x-jet-confirmation-modal maxWidth="2xl" wire:model.defer="confirmSave">
     <x-slot name="title">
-        Add Work
+        Add Occupation
     </x-slot>
 
     <x-slot name="content">
-        Are you sure you want to add this work? Once you add it, all data will be stored and displayed.
+        Are you sure you want to add this occupation? Once you add it, all data will be stored and displayed.
     </x-slot>
 
     <x-slot name="footer">

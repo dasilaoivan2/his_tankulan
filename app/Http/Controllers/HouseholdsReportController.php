@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classification;
 use App\Models\Household;
+use App\Models\Ownership;
 use App\Models\Type;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -71,5 +72,29 @@ class HouseholdsReportController extends Controller
 
 
         return view('reports.households.householdzonecr', compact('households', 'cr', 'zone'));
+    }
+
+
+    public function householdownership($ownership_id)
+    {
+        $ownership = Ownership::find($ownership_id);
+        $households = Household::where('ownership_id', $ownership_id)->get();
+
+       
+
+        return view('reports.households.householdownership', compact('households', 'ownership'));
+    }
+
+    public function householdzoneownership($zone_id, $ownership_id)
+    {
+        $zone = Zone::find($zone_id);
+        $ownership = Ownership::find($ownership_id);
+
+        $households = Household::where('ownership_id', $ownership_id)
+        ->where('zone_id', $zone->id)
+        ->get();
+
+
+        return view('reports.households.householdzoneownership', compact('households', 'ownership', 'zone'));
     }
 }

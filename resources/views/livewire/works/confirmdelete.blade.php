@@ -1,10 +1,10 @@
 <x-jet-confirmation-modal maxWidth="2xl" wire:model.defer="confirmDelete">
     <x-slot name="title">
-        Delete Work
+        Delete Occupation
     </x-slot>
 
     <x-slot name="content">
-        Are you sure you want to delete this work? Once you delete it, all of its resources and data will be permanently deleted.
+        Are you sure you want to delete this occupation? Once you delete it, all of its resources and data will be permanently deleted.
     </x-slot>
 
     <x-slot name="footer">

@@ -10,7 +10,7 @@ class Citizen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['household_id', 'firstname', 'middlename', 'lastname', 'suffixname', 'birthdate', 'gender_id', 'contact_no', 'permanent_address', 'email', 'familyrole_id', 'citizentype_id', 'work_id', 'photo', 'deceased', 'yearlive'];
+    protected $fillable = ['household_id', 'firstname', 'middlename', 'lastname', 'suffixname', 'birthdate', 'gender_id', 'contact_no', 'permanent_address', 'email', 'familyrole_id', 'citizentype_id', 'work_id', 'photo', 'deceased', 'yearlive', 'income'];
 
     public function categories(){
         return $this->belongsToMany('App\Models\Category', 'citizencategories', 'citizen_id', 'category_id');
@@ -62,12 +62,24 @@ class Citizen extends Model
 
     public function fullname()
     {
-        return $this->firstname." ".$this->middlename[0].". ".$this->lastname." ".$this->suffixname;
+        if($this->middlename == NULL){
+            return $this->firstname." - ".$this->lastname." ".$this->suffixname;
+        }
+        else{
+            return $this->firstname." ".$this->middlename[0].". ".$this->lastname." ".$this->suffixname;
+        }
+        
     }
 
     public function fullnameLastname()
     {
-        return $this->lastname.", ".$this->firstname." ".$this->middlename[0].". ".$this->suffixname;
+        if($this->middlename == NULL){
+            return $this->lastname.", ".$this->firstname." - ".$this->suffixname;
+        }
+        else{
+            return $this->lastname.", ".$this->firstname." ".$this->middlename[0].". ".$this->suffixname;
+        }
+        
     }
 
     public function age()

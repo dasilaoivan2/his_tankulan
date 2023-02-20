@@ -79,7 +79,7 @@ class Citizenreports extends Component
                 ->join('citizens','citizens.id', 'citizencategories.citizen_id')
                 ->join('households','households.id', 'citizens.household_id')
                 ->distinct()
-                ->paginate(50)
+                ->paginate(50, ['*'], 'categoriespagination')
             ]);
             }
             else{
@@ -90,7 +90,7 @@ class Citizenreports extends Component
                 ->join('citizens','citizens.id', 'citizencategories.citizen_id')
                 ->join('households','households.id', 'citizens.household_id')
                 ->distinct()
-                ->paginate(50)
+                ->paginate(50, ['*'], 'citizencategoriespagination')
             ]);
             }
             
@@ -104,7 +104,7 @@ class Citizenreports extends Component
                 ->join('citizens','citizens.id', 'citizenprograms.citizen_id')
                 ->join('households','households.id', 'citizens.household_id')
                 ->distinct()
-                ->paginate(50)
+                ->paginate(50, ['*'], 'programpagination')
             ]);
             }
             else{
@@ -115,7 +115,7 @@ class Citizenreports extends Component
                 ->join('citizens','citizens.id', 'citizenprograms.citizen_id')
                 ->join('households','households.id', 'citizens.household_id')
                 ->distinct()
-                ->paginate(50)
+                ->paginate(50, ['*'], 'citizenprogramspagination')
             ]);
             }
             
@@ -130,7 +130,7 @@ class Citizenreports extends Component
                 ->join('citizens','citizens.id', 'citizenpendingcases.citizen_id')
                 ->join('households','households.id', 'citizens.household_id')
                 ->distinct()
-                ->paginate(10)
+                ->paginate(50, ['*'], 'casespagination')
             ]);
             }
             else{
@@ -141,7 +141,7 @@ class Citizenreports extends Component
                 ->join('citizens','citizens.id', 'citizenpendingcases.citizen_id')
                 ->join('households','households.id', 'citizens.household_id')
                 ->distinct()
-                ->paginate(50)
+                ->paginate(50, ['*'], 'citizencasespagination')
             ]);
             }
             

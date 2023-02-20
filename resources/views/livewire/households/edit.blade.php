@@ -96,7 +96,7 @@
                             <x-jet-input-error for="address_detail" class="mt-2" />
                         </div>
                         <div class="mb-4">
-                            <x-jet-label for="income" value="{{ __('Income *') }}" />
+                            <x-jet-label for="income" value="{{ __('Household Income *') }}" />
 
                             <x-jet-input id="income" type="number" class="mt-1 block w-full" wire:model="income" />
                             <x-jet-input-error for="income" class="mt-2" />
@@ -310,7 +310,7 @@
                                     
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div class="mb-2">
-                                            <x-jet-label for="work_id" value="{{ __('Nature of Work') }}" />
+                                            <x-jet-label for="work_id" value="{{ __('Occupation') }}" />
 
                                             <select id="work_id" wire:model="work_id" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                                                 <option value="">Select...</option>
@@ -346,7 +346,7 @@
                                     </div>
                                     @endif
                                     <br>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div class="mb-2">
                                             <x-jet-label for="deceased" value="{{ __('Select if deceased') }}" />
 
@@ -371,6 +371,12 @@
 
                                             <x-jet-input id="yearlive" type="number" class="mt-1 block w-full" wire:model="yearlive" placeholder="YYYY" />
                                             <x-jet-input-error for="yearlive" class="mt-2" />
+                                        </div>
+                                        <div class="mb-4">
+                                            <x-jet-label for="citizen_income" value="{{ __('Monthly Income *') }}" />
+
+                                            <x-jet-input id="citizen_income" type="number" class="mt-1 block w-full" wire:model="citizen_income" />
+                                            <x-jet-input-error for="citizen_income" class="mt-2" />
                                         </div>
                                     </div>
                                     <br>

@@ -252,8 +252,19 @@
                     <td class="font-normal bold">Residence Name:</td>
                     <td>{{$citizen->household->residence_name}}</td>
                     <td width="150px"></td>
-                    <td class="font-normal bold">Income:</td>
+                    <td class="font-normal bold">Household Income:</td>
                     <td>{{$citizen->household->income}}</td>
+                    <td width="150px"></td>
+                    <td class="font-normal bold">Type of Ownership:</td>
+                    <td>{{$citizen->household->ownership->name}}</td>
+                </tr>
+
+            </table>
+
+            <table>
+                <tr>
+                    
+                    
                 </tr>
 
             </table>
@@ -310,12 +321,24 @@
 
             <table>
                 <tr>
-                    <td class="font-normal bold">Permanent Address:</td>
+                    <td width="150px" class="font-normal bold">Permanent Address:</td>
                     <td>{{$citizen->permanent_address}}</td>
                 </tr>
 
             </table>
+            <table>
+                <tr>
+                    <td width="150px" class="font-normal bold">Occupation:</td>
+                    <td width="200px">@if($citizen->work == NULL) @else{{$citizen->work->name}}@endif</td>
+                    <td width="50px"></td>
+                    <td width="125px" class="font-normal bold">Year as Resident:</td>
+                    <td>{{$citizen->yearlive}}</td>
+                    <td width="50px"></td>
+                    <td width="125px" class="font-normal bold">Mothly Income:</td>
+                    <td width="125px">{{$citizen->income}}</td>
+                </tr>
 
+            </table>
             <br>
 
             <div class="border-graylight">
