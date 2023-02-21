@@ -37,7 +37,7 @@ class Citizenownershipreports extends Component
                     return view('livewire.citizenownershipreports', ['citizens' => Citizen::select('citizens.*')
                     ->join('households','households.id', 'citizens.household_id')
                     ->join('zones','zones.id', 'households.zone_id')
-                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->where('zones.id', $this->zone_id)
                     ->where('households.ownership_id', $ownership->id)
                     ->paginate(50)]);
@@ -49,7 +49,7 @@ class Citizenownershipreports extends Component
                     return view('livewire.citizenownershipreports', ['citizens' => Citizen::select('citizens.*')
                     ->join('households','households.id', 'citizens.household_id')
                     ->join('zones','zones.id', 'households.zone_id')
-                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->where('households.ownership_id', $ownership->id)
                     ->paginate(50)]);
                 }
@@ -63,14 +63,14 @@ class Citizenownershipreports extends Component
                 return view('livewire.citizenownershipreports', ['citizens' => Citizen::select('citizens.*')
                 ->join('households','households.id', 'citizens.household_id')
                 ->join('zones','zones.id', 'households.zone_id')
-                ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                 ->where('households.ownership_id', $ownership->id)
                 ->paginate(50)]);
             }
 
         }
         else{
-            return view('livewire.citizenownershipreports', ['citizens' => Citizen::select('citizens.*')->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+            return view('livewire.citizenownershipreports', ['citizens' => Citizen::select('citizens.*')->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
             ->paginate(50)]);
         }
     }

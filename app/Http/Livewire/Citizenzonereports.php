@@ -160,7 +160,7 @@ class Citizenzonereports extends Component
             }
             elseif($this->radio_select == ''){
                 return view('livewire.citizenzonereports', ['citizens' => Citizen::select('citizens.*', 'households.residence_name as residence_name', 'zones.name as zone_name')
-                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->where('zones.id', $this->zone_id)
                     ->join('households','households.id', 'citizens.household_id')
                     ->join('zones','zones.id', 'households.zone_id')
@@ -174,6 +174,7 @@ class Citizenzonereports extends Component
             
             return view('livewire.citizenzonereports', ['citizens' => Citizen::select('citizens.*')->where('citizens.lastname','LIKE','%'.$this->searchToken.'%')
             ->orWhere('citizens.firstname','LIKE','%'.$this->searchToken.'%')
+            ->orWhere('citizens.middlename','LIKE','%'.$this->searchToken.'%')
             ->paginate(50)]);
         }
         

@@ -45,7 +45,7 @@ class Citizenagerangereports extends Component
                     return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')
                     ->join('households','households.id', 'citizens.household_id')
                     ->join('zones','zones.id', 'households.zone_id')
-                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->where('zones.id', $this->zone_id)
                     ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
                     ->paginate(50)]);
@@ -59,7 +59,7 @@ class Citizenagerangereports extends Component
                     $maxDate = Carbon::today()->subYears($minAge)->endOfDay();
         
                     return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')
-                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                    ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
                     ->paginate(50)]);
                 }
@@ -73,7 +73,7 @@ class Citizenagerangereports extends Component
                 $maxDate = Carbon::today()->subYears($minAge)->endOfDay();
     
                 return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')
-                ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+                ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                 ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
                 ->paginate(50)]);
             }
@@ -82,7 +82,7 @@ class Citizenagerangereports extends Component
         }
         else
         {
-            return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%'))")
+            return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
             ->paginate(50)]);
         }
 

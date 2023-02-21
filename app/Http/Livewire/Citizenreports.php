@@ -149,6 +149,7 @@ class Citizenreports extends Component
         elseif($this->radio_select == ''){
             return view('livewire.citizenreports', ['citizens' => Citizen::select('citizens.*')->where('citizens.lastname','LIKE','%'.$this->searchToken.'%')
             ->orWhere('citizens.firstname','LIKE','%'.$this->searchToken.'%')
+            ->orWhere('citizens.middlename','LIKE','%'.$this->searchToken.'%')
             ->paginate(50)]);
         }
 

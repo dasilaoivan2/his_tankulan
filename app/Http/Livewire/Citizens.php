@@ -73,6 +73,7 @@ class Citizens extends Component
         
         return view('livewire.citizens',['citizens' => Citizen::select('citizens.*')->where('citizens.lastname','LIKE','%'.$this->searchToken.'%')
             ->orWhere('citizens.firstname','LIKE','%'.$this->searchToken.'%')
+            ->orWhere('citizens.middlename','LIKE','%'.$this->searchToken.'%')
             ->orderBy('household_id', 'ASC')
             ->paginate(50, ['*'], 'citizenspagination'), 'households' => Household::where('residence_name', 'LIKE', '%' . $this->searchHousehold . '%')->paginate(25, ['*'], 'householdspagination')]);
     }
