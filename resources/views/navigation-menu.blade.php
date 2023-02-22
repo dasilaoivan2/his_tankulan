@@ -97,6 +97,10 @@
                                     {{ __('Ownerships') }}
                                 </x-jet-dropdown-link>
 
+                                <x-jet-dropdown-link href="{{route('materials')}}" :active="request()->routeIs('materials')">
+                                    {{ __('Type of Materials') }}
+                                </x-jet-dropdown-link>
+
                                 <div class="border-t border-gray-100"></div>
                             </div>
                         </x-slot>
@@ -145,6 +149,10 @@
                                     <x-jet-dropdown-link href="{{ route('citizenownershipreports') }}" :active="request()->routeIs('citizenownershipreports')">
                                         {{ __('Ownership') }}
                                     </x-jet-dropdown-link>
+
+                                    <!-- <x-jet-dropdown-link href="{{ route('citizenmaterialreports') }}" :active="request()->routeIs('citizenmaterialreports')">
+                                        {{ __('Type of Material') }}
+                                    </x-jet-dropdown-link> -->
                                     
 
                                     
@@ -179,6 +187,10 @@
 
                                     <x-jet-dropdown-link href="{{route('householdownershipreports')}}" :active="request()->routeIs('householdownershipreports')">
                                         {{ __('Ownerships') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="{{route('householdmaterialreports')}}" :active="request()->routeIs('householdmaterialreports')">
+                                        {{ __('Type of Material') }}
                                     </x-jet-dropdown-link>
 
 

@@ -26,18 +26,18 @@
 
             <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Please select for Citizen Report</h3>
             <ul class="grid gap-6 w-full grid-cols-1 md:grid-cols-3">
-                @foreach($ownerships as $ownership)
+                @foreach($materials as $material)
                 <li>
-                    <input type="radio" id="{{$ownership->id}}" wire:model="ownership_id" value="{{$ownership->id}}" class="hidden peer" required>
-                    <label for="{{$ownership->id}}" class="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <input type="radio" id="{{$material->id}}" wire:model="material_id" value="{{$material->id}}" class="hidden peer" required>
+                    <label for="{{$material->id}}" class="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <div class="block">
-                            <div class="w-full text-lg font-semibold">{{$ownership->name}}</div>
+                            <div class="w-full text-lg font-semibold">{{$material->name}}</div>
                             <div class="w-full">Total: 
                                 @php
                                 $total = 0;
                                 @endphp
 
-                                @foreach($ownership->households as $household)
+                                @foreach($material->households as $household)
 
                                 @php
                                 $total += $household->citizens->count();
@@ -58,7 +58,7 @@
             </ul>
             <br>
 
-            @if($ownership_id)
+            @if($material_id)
             <div class="flex">
                 <div class="flex items-center mr-4">
                     <input id="viewzone" type="checkbox" wire:model="viewZone" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -99,25 +99,25 @@
                         Clear All
                     </button>
 
-                    @if($ownership_id != NULL)
+                    @if($material_id != NULL)
                     @if($viewZone)
                     @if($zone_id != NULL)
-                    <a href="{{route('citizens.zoneownership.reports', ['zone_id' => $zone_id, 'ownership_id' => $ownership_id])}}" class="mb-4 mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
+                    <a href="{{route('citizens.zonematerial.reports', ['zone_id' => $zone_id, 'material_id' => $material_id])}}" class="mb-4 mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
                         <i class="fa fa-print fa-lg" style="margin-right: 10px"></i>
-                        Print By Ownership / Zone
+                        Print By Type / Zone
                     </a>
 
                     @else
-                    <a href="{{route('citizens.ownership.reports', ['ownership_id' => $ownership_id])}}" class="mb-4 mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
+                    <a href="{{route('citizens.material.reports', ['material_id' => $material_id])}}" class="mb-4 mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
                         <i class="fa fa-print fa-lg" style="margin-right: 10px"></i>
-                        Print By Ownership
+                        Print By Type
                     </a>
                     @endif
 
                     @else
-                    <a href="{{route('citizens.ownership.reports', ['ownership_id' => $ownership_id])}}" class="mb-4 mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
+                    <a href="{{route('citizens.material.reports', ['material_id' => $material_id])}}" class="mb-4 mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
                         <i class="fa fa-print fa-lg" style="margin-right: 10px"></i>
-                        Print By Ownership
+                        Print By Type
                     </a>
 
                     @endif

@@ -13,6 +13,7 @@ use App\Models\Classification;
 use App\Models\Familyrole;
 use App\Models\Gender;
 use App\Models\Household;
+use App\Models\Material;
 use App\Models\Ownership;
 use App\Models\Pendingcase;
 use App\Models\Program;
@@ -82,6 +83,7 @@ class Households extends Component
     public $editZoneBrgy = false;
 
     public $ownerships, $ownership_id;
+    public $materials, $material_id;
 
     
     
@@ -100,12 +102,13 @@ class Households extends Component
         $this->works = Work::all();
         $this->citizentypes = Citizentype::all();
         $this->ownerships = Ownership::all();
+        $this->materials = Material::all();
 
                 
         
         return view('livewire.households',['households' => Household::select('households.*')->where('households.residence_name','LIKE','%'.$this->searchToken.'%')
             ->orderBy('id', 'ASC')
-            ->paginate(10)]);
+            ->paginate(50)]);
     }
 
 
@@ -540,6 +543,7 @@ class Households extends Component
         $this->savebrgy = '';
         $this->cr = '';
         $this->ownership_id = '';
+        $this->material_id = '';
 
 
         $this->zoneBarangaylists = [];
@@ -576,6 +580,7 @@ class Households extends Component
                 'income' => 'required',
                 'cr' => 'required',
                 'ownership_id' => 'required',
+                'material_id' => 'required',
             ],[
                 'residence_name.required' => 'Field is required.',
                 'type_id.required' => 'Field is required.',
@@ -586,6 +591,7 @@ class Households extends Component
                 'income.required' => 'Field is required.',
                 'cr.required' => 'Please check button.',
                 'ownership_id.required' => 'Please select ownership.',
+                'material_id.required' => 'Please select type of material.',
             ]);
 
             
@@ -604,7 +610,8 @@ class Households extends Component
             'address_detail' => $this->address_detail,
             'income' => $this->income,
             'cr' => $this->cr,
-            'ownership_id' => $this->ownership_id
+            'ownership_id' => $this->ownership_id,
+            'material_id' => $this->material_id
         ]);
 
         
@@ -701,6 +708,7 @@ class Households extends Component
         $this->income = $household->income;
         $this->cr = $household->cr;
         $this->ownership_id = $household->ownership_id;
+        $this->material_id = $household->material_id;
         
         $this->citizens = Citizen::where('household_id', $household->id)->get();
 
@@ -1099,6 +1107,7 @@ class Households extends Component
                 'income' => 'required',
                 'cr' => 'required',
                 'ownership_id' => 'required',
+                'material_id' => 'required',
             ],[
                 'residence_name.required' => 'Field is required.',
                 'type_id.required' => 'Field is required.',
@@ -1108,7 +1117,8 @@ class Households extends Component
                 'address_detail.required' => 'Field is required.',
                 'income.required' => 'Field is required.',
                 'cr.required' => 'Please check button.',
-                'ownership.required' => 'Please select ownership.',
+                'ownership_id.required' => 'Please select ownership.',
+                'material_id.required' => 'Please select type of material.',
             ]);
 
             
@@ -1129,6 +1139,7 @@ class Households extends Component
             'income' => $this->income,
             'cr' => $this->cr,
             'ownership_id' => $this->ownership_id,
+            'material_id' => $this->material_id
         ]);
 
 

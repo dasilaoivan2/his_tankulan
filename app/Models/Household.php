@@ -10,7 +10,7 @@ class Household extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id', 'classification_id', 'barangay_id', 'zone_id', 'residence_name', 'address_detail', 'income', 'cr', 'ownership_id'];
+    protected $fillable = ['type_id', 'classification_id', 'barangay_id', 'zone_id', 'residence_name', 'address_detail', 'income', 'cr', 'ownership_id', 'material_id'];
 
     public function citizens(){
         return $this->hasMany('App\Models\Citizen');
@@ -42,6 +42,10 @@ class Household extends Model
 
     public function ownership(){
         return $this->belongsTo('App\Models\Ownership');
+    }
+
+    public function material(){
+        return $this->belongsTo('App\Models\Material');
     }
 
     

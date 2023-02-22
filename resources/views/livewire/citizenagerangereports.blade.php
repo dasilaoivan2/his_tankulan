@@ -32,7 +32,15 @@
                     <label for="{{$agebracket->id}}" class="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <div class="block">
                             <div class="w-full text-lg font-semibold">{{$agebracket->name}}</div>
-                            <div class="w-full">{{$agebracket->from}} - {{$agebracket->to}} </div>
+                            <div class="w-full">
+                                @if($agebracket->id != 1)
+                                {{$agebracket->from}} - {{$agebracket->to}}
+                                @else
+                                    0 - 11 months
+                                @endif
+                            
+                            
+                             </div>
                         </div>
                         <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -140,7 +148,30 @@
                         <td class="border px-4 py-2">{{$citizen->firstname}} @if($citizen->middlename != NULL){{$citizen->middlename[0]}}. @else @endif {{$citizen->lastname}} {{$citizen->suffixname}}</td>
                         <td class="border px-4 py-2">{{ $citizen->household->residence_name}}</td>
                         <td class="border px-4 py-2">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
-                        <td class="border px-4 py-2">{{\Carbon\Carbon::parse($citizen->birthdate)->age}}</td>
+                        <td class="border px-4 py-2">
+                            @if($citizen->age() < 1)
+                            
+                                @if($citizen->ageMonth() < 1)
+                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%d day(s)')}}
+                                @else
+
+                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%m month(s)')}}
+
+                                @endif
+                           
+
+                            @else
+                            {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%y')}}
+
+                            @endif
+                               
+                            
+                            
+                           
+                        <!-- {{ $citizen->ageinwords($citizen->ageindays())}} -->
+                        
+                    
+                        </td>
                         <td class="border">
                             <a href="{{route('citizens.individual.reports', ['id' => $citizen->id])}}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
                                 <i class="fa fa-print fa-lg" style="margin-right: 10px"></i>

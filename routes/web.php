@@ -7,18 +7,21 @@ use App\Http\Livewire\Citizenagerangereports;
 use App\Http\Livewire\Citizenworkreports;
 use App\Http\Livewire\Citizentypereports;
 use App\Http\Livewire\Citizenownershipreports;
+use App\Http\Livewire\Citizenmaterialreports;
 use App\Http\Livewire\Householdreports;
 use App\Http\Livewire\Householdtypereports;
 use App\Http\Livewire\Householdclassreports;
 use App\Http\Livewire\Householdzonereports;
 use App\Http\Livewire\Householdcrreports;
 use App\Http\Livewire\Householdownershipreports;
+use App\Http\Livewire\Householdmaterialreports;
 use App\Http\Livewire\Citizens;
 use App\Http\Livewire\Classifications;
 use App\Http\Livewire\Agebrackets;
 use App\Http\Livewire\Works;
 use App\Http\Livewire\Citizentypes;
 use App\Http\Livewire\Ownerships;
+use App\Http\Livewire\Materials;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboards;
 use App\Http\Livewire\Familyroles;
@@ -75,6 +78,7 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('works',Works::class)->middleware(['auth:sanctum', 'verified'])->name('works');
     Route::get('citizentypes',Citizentypes::class)->middleware(['auth:sanctum', 'verified'])->name('citizentypes');
     Route::get('ownerships',Ownerships::class)->middleware(['auth:sanctum', 'verified'])->name('ownerships');
+    Route::get('materials',Materials::class)->middleware(['auth:sanctum', 'verified'])->name('materials');
     
     
     
@@ -86,6 +90,7 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('citizenworkreports',Citizenworkreports::class)->middleware(['auth:sanctum', 'verified'])->name('citizenworkreports');
     Route::get('citizentypereports',Citizentypereports::class)->middleware(['auth:sanctum', 'verified'])->name('citizentypereports');
     Route::get('citizenownershipreports',Citizenownershipreports::class)->middleware(['auth:sanctum', 'verified'])->name('citizenownershipreports');
+    Route::get('citizenmaterialreports',Citizenmaterialreports::class)->middleware(['auth:sanctum', 'verified'])->name('citizenmaterialreports');
     
     Route::get('householdreports',Householdreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdreports');
     Route::get('householdtypereports',Householdtypereports::class)->middleware(['auth:sanctum', 'verified'])->name('householdtypereports');
@@ -93,6 +98,7 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('householdzonereports',Householdzonereports::class)->middleware(['auth:sanctum', 'verified'])->name('householdzonereports');
     Route::get('householdcrreports',Householdcrreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdcrreports');
     Route::get('householdownershipreports',Householdownershipreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdownershipreports');
+    Route::get('householdmaterialreports',Householdmaterialreports::class)->middleware(['auth:sanctum', 'verified'])->name('householdmaterialreports');
     
     
     
@@ -118,6 +124,8 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('citizens/zone/{zone_id}/citizentype/{citizentype_id}', 'App\Http\Controllers\CitizensReportController@zonecitizentype')->name('citizens.zonecitizentype.reports');
     Route::get('citizens/ownership/{ownership_id}', 'App\Http\Controllers\CitizensReportController@ownership')->name('citizens.ownership.reports');
     Route::get('citizens/zone/{zone_id}/ownership/{ownership_id}', 'App\Http\Controllers\CitizensReportController@zoneownership')->name('citizens.zoneownership.reports');
+    Route::get('citizens/material/{material_id}', 'App\Http\Controllers\CitizensReportController@material')->name('citizens.material.reports');
+    Route::get('citizens/zone/{zone_id}/material/{material_id}', 'App\Http\Controllers\CitizensReportController@zonematerial')->name('citizens.zonematerial.reports');
     
     
     Route::get('households/all/reports', 'App\Http\Controllers\HouseholdsReportController@allhousehold')->name('households.all.reports');
@@ -129,5 +137,7 @@ Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function(){
     Route::get('households/zone/{zone_id}/reports/cr/{cr}', 'App\Http\Controllers\HouseholdsReportController@householdzonecr')->name('households.reports.zonecr');
     Route::get('households/reports/ownership/{ownership_id}', 'App\Http\Controllers\HouseholdsReportController@householdownership')->name('households.reports.ownership');
     Route::get('households/zone/{zone_id}/reports/ownership/{ownership_id}', 'App\Http\Controllers\HouseholdsReportController@householdzoneownership')->name('households.reports.zoneownership');
+    Route::get('households/reports/material/{material_id}', 'App\Http\Controllers\HouseholdsReportController@householdmaterial')->name('households.reports.material');
+    Route::get('households/zone/{zone_id}/reports/material/{material_id}', 'App\Http\Controllers\HouseholdsReportController@householdzonematerial')->name('households.reports.zonematerial');
 });
 

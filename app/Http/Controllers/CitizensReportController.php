@@ -6,6 +6,7 @@ use App\Models\Agebracket;
 use App\Models\Category;
 use App\Models\Citizen;
 use App\Models\Citizentype;
+use App\Models\Material;
 use App\Models\Ownership;
 use App\Models\Pendingcase;
 use App\Models\Program;
@@ -30,9 +31,16 @@ class CitizensReportController extends Controller
     {
         $citizens = Citizen::orderBy('lastname', 'ASC')->get();
 
+        $gender_records = Citizen::selectRaw('
+            COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+            COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+            COUNT(*) as "all"
+            ')
+            ->first();
+
         
 
-        return view('reports.citizens.allcitizen', compact('citizens'));
+        return view('reports.citizens.allcitizen', compact('citizens', 'gender_records'));
     }
 
     public function individual($id)
@@ -60,13 +68,18 @@ class CitizensReportController extends Controller
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
 
+            $male = $citizens->where('gender_id', 1)->count();
+            $female = $citizens->where('gender_id', 2)->count();
+
+            
+
               
              
         }
         elseif($radio_select == 2){
             $group_name = 'PROGRAM';
            $citizens = DB::table('citizenprograms')
-            ->select('citizens.*', 'households.residence_name as residence_name', 'zones.name as zone_name')
+            ->select('citizens.*',  'households.residence_name as residence_name', 'zones.name as zone_name')
             ->join('programs','programs.id', 'citizenprograms.program_id')
             ->join('citizens','citizens.id', 'citizenprograms.citizen_id')
             ->join('households','households.id', 'citizens.household_id')
@@ -74,6 +87,9 @@ class CitizensReportController extends Controller
             ->distinct()
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
+
+            $male = $citizens->where('gender_id', 1)->count();
+            $female = $citizens->where('gender_id', 2)->count();
 
             
 
@@ -90,11 +106,14 @@ class CitizensReportController extends Controller
                 ->orderBy('citizens.lastname', 'ASC')
                 ->get();
 
+            $male = $citizens->where('gender_id', 1)->count();
+            $female = $citizens->where('gender_id', 2)->count();
+
         }
 
         // $citizens = $citizens->get();
 
-        return view('reports.citizens.group', compact('citizens', 'group_name'));
+        return view('reports.citizens.group', compact('citizens', 'group_name', 'male', 'female'));
 
     }
 
@@ -117,6 +136,9 @@ class CitizensReportController extends Controller
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
 
+            $male = $citizens->where('gender_id', 1)->count();
+            $female = $citizens->where('gender_id', 2)->count();
+
         
              
         }
@@ -136,6 +158,9 @@ class CitizensReportController extends Controller
             ->distinct()
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
+
+            $male = $citizens->where('gender_id', 1)->count();
+            $female = $citizens->where('gender_id', 2)->count();
 
             
 
@@ -157,9 +182,12 @@ class CitizensReportController extends Controller
                 ->orderBy('citizens.lastname', 'ASC')
                 ->get();
 
+                $male = $citizens->where('gender_id', 1)->count();
+                $female = $citizens->where('gender_id', 2)->count();
+
         }
 
-        return view('reports.citizens.subgroup', compact('citizens', 'group_name', 'subgroup_name'));
+        return view('reports.citizens.subgroup', compact('citizens', 'group_name', 'subgroup_name', 'male', 'female'));
     }
 
     
@@ -174,7 +202,10 @@ class CitizensReportController extends Controller
         ->orderBy('citizens.lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.zone', compact('citizens', 'zone'));
+        $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
+
+        return view('reports.citizens.zone', compact('citizens', 'zone', 'male', 'female'));
     }
 
     public function zonegroup($zone_id,$radio_select)
@@ -196,6 +227,9 @@ class CitizensReportController extends Controller
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
 
+            $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
+
         
              
         }
@@ -211,6 +245,9 @@ class CitizensReportController extends Controller
             ->distinct()
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
+
+            $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
 
             
 
@@ -228,11 +265,14 @@ class CitizensReportController extends Controller
                 ->orderBy('citizens.lastname', 'ASC')
                 ->get();
 
+                $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
+
         }
 
        
 
-        return view('reports.citizens.zonegroup', compact('citizens', 'group_name', 'zone'));
+        return view('reports.citizens.zonegroup', compact('citizens', 'group_name', 'zone', 'male', 'female'));
 
     }
 
@@ -260,6 +300,9 @@ class CitizensReportController extends Controller
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
 
+            $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
+
         
              
         }
@@ -280,6 +323,9 @@ class CitizensReportController extends Controller
             ->distinct()
             ->orderBy('citizens.lastname', 'ASC')
             ->get();
+
+            $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
 
             
 
@@ -302,9 +348,12 @@ class CitizensReportController extends Controller
                 ->orderBy('citizens.lastname', 'ASC')
                 ->get();
 
+                $male = $citizens->where('gender_id', 1)->count();
+        $female = $citizens->where('gender_id', 2)->count();
+
         }
 
-        return view('reports.citizens.zonesubgroup', compact('citizens', 'group_name', 'zone','subgroup_name'));
+        return view('reports.citizens.zonesubgroup', compact('citizens', 'group_name', 'zone','subgroup_name', 'male', 'female'));
     }
 
     public function agerange($agebracket_id)
@@ -319,11 +368,17 @@ class CitizensReportController extends Controller
             $citizens = Citizen::whereBetween('citizens.birthdate', [$minDate,$maxDate])
             ->orderBy('lastname', 'ASC')
             ->get();
+            
+            $gender_records = Citizen::selectRaw('
+            COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+            COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+            COUNT(*) as "all"
+            ')->whereBetween('citizens.birthdate', [$minDate,$maxDate])
+            ->first();
 
 
 
-
-        return view('reports.citizens.age', compact('citizens', 'age'));
+        return view('reports.citizens.age', compact('citizens', 'age', 'gender_records'));
     }
 
     public function zoneagerange($zone_id, $agebracket_id)
@@ -345,7 +400,18 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.zoneage', compact('citizens', 'age', 'zone'));
+        $gender_records = Citizen::selectRaw('
+            COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+            COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+            COUNT(*) as "all"
+            ')
+            ->join('households','households.id', 'citizens.household_id')
+            ->join('zones','zones.id', 'households.zone_id')
+            ->where('zones.id', $zone_id)
+            ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
+            ->first();
+
+        return view('reports.citizens.zoneage', compact('citizens', 'age', 'zone', 'gender_records'));
     }
 
     public function work($work_id)
@@ -361,7 +427,17 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.work', compact('citizens', 'work'));
+        $gender_records = Citizen::selectRaw('
+            COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+            COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+            COUNT(*) as "all"
+            ')
+            ->join('households','households.id', 'citizens.household_id')
+            ->join('zones','zones.id', 'households.zone_id')
+            ->where('citizens.work_id', $work->id)
+            ->first();
+
+        return view('reports.citizens.work', compact('citizens', 'work', 'gender_records'));
     }
 
     public function zonework($zone_id, $work_id)
@@ -378,7 +454,18 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.zonework', compact('citizens', 'work', 'zone'));
+        $gender_records = Citizen::selectRaw('
+            COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+            COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+            COUNT(*) as "all"
+            ')
+            ->join('households','households.id', 'citizens.household_id')
+            ->join('zones','zones.id', 'households.zone_id')
+            ->where('zones.id', $zone_id)
+            ->where('citizens.work_id', $work->id)
+            ->first();
+
+        return view('reports.citizens.zonework', compact('citizens', 'work', 'zone', 'gender_records'));
     }
 
     public function citizentype($citizentype_id)
@@ -394,7 +481,17 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.type', compact('citizens', 'citizentype'));
+        $gender_records = Citizen::selectRaw('
+            COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+            COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+            COUNT(*) as "all"
+            ')
+            ->join('households','households.id', 'citizens.household_id')
+            ->join('zones','zones.id', 'households.zone_id')
+            ->where('citizens.citizentype_id', $citizentype->id)
+            ->first();
+
+        return view('reports.citizens.type', compact('citizens', 'citizentype','gender_records'));
     }
 
     public function zonecitizentype($zone_id, $citizentype_id)
@@ -411,7 +508,18 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.zonetype', compact('citizens', 'citizentype', 'zone'));
+        $gender_records = Citizen::selectRaw('
+        COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+        COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+        COUNT(*) as "all"
+        ')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('zones.id', $zone_id)
+        ->where('citizens.citizentype_id', $citizentype->id)
+        ->first();
+
+        return view('reports.citizens.zonetype', compact('citizens', 'citizentype', 'zone', 'gender_records'));
     }
 
     public function ownership($ownership_id)
@@ -427,7 +535,17 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.ownership', compact('citizens', 'ownership'));
+        $gender_records = Citizen::selectRaw('
+        COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+        COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+        COUNT(*) as "all"
+        ')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('households.ownership_id', $ownership->id)
+        ->first();
+
+        return view('reports.citizens.ownership', compact('citizens', 'ownership', 'gender_records'));
     }
 
     public function zoneownership($zone_id, $ownership_id)
@@ -444,7 +562,72 @@ class CitizensReportController extends Controller
         ->orderBy('lastname', 'ASC')
         ->get();
 
-        return view('reports.citizens.zoneownership', compact('citizens', 'ownership', 'zone'));
+        $gender_records = Citizen::selectRaw('
+        COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+        COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+        COUNT(*) as "all"
+        ')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('zones.id', $zone_id)
+        ->where('households.ownership_id', $ownership->id)
+        ->first();
+
+        return view('reports.citizens.zoneownership', compact('citizens', 'ownership', 'zone', 'gender_records'));
+    }
+
+    public function material($material_id)
+    {
+        $material = Material::find($material_id);
+
+       
+
+        $citizens = Citizen::select('citizens.*')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('households.material_id', $material->id)
+        ->orderBy('lastname', 'ASC')
+        ->get();
+
+        $gender_records = Citizen::selectRaw('
+        COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+        COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+        COUNT(*) as "all"
+        ')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('households.material_id', $material->id)
+        ->first();
+
+        return view('reports.citizens.material', compact('citizens', 'material', 'gender_records'));
+    }
+
+    public function zonematerial($zone_id, $material_id)
+    {
+        $material = Material::find($material_id);
+        $zone = Zone::find($zone_id);
+
+
+        $citizens = Citizen::select('citizens.*')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('zones.id', $zone_id)
+        ->where('households.material_id', $material->id)
+        ->orderBy('lastname', 'ASC')
+        ->get();
+
+        $gender_records = Citizen::selectRaw('
+        COUNT(CASE WHEN citizens.gender_id = 1 THEN 1 ELSE NULL END) as "male",
+        COUNT(CASE WHEN citizens.gender_id <> 1 THEN 1 ELSE NULL END) as "female",
+        COUNT(*) as "all"
+        ')
+        ->join('households','households.id', 'citizens.household_id')
+        ->join('zones','zones.id', 'households.zone_id')
+        ->where('zones.id', $zone_id)
+        ->where('households.material_id', $material->id)
+        ->first();
+
+        return view('reports.citizens.zonematerial', compact('citizens', 'material', 'zone', 'gender_records'));
     }
 
 }

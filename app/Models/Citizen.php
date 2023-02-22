@@ -86,5 +86,58 @@ class Citizen extends Model
     {
         return Carbon::parse($this->attributes['birthdate'])->age;
     }
+
+    public function ageMonth()
+    {
+        return Carbon::parse($this->attributes['birthdate'])->diff(\Carbon\Carbon::now())->format('%m');
+    }
+
+    public function ageindays(){
+
+       
+            $start = strtotime($this->birthdate);
+            $end = strtotime(now());
+    
+            return ceil(abs($end - $start) / 86400);
+    
+    }
+
+    public function ageinwords($sum){
+
+        $finalyear="";
+        $finalmonth="";
+        $finalday="";
+        $stringyears = "year";
+        $stringmonths="month";
+        $stringdays="day";
+        $years = floor($sum / 365);
+        $months = floor(($sum - ($years * 365))/30.5);
+        $days = ($sum - ($years * 365) - ($months * 30.5));
+
+        if($years > 1)
+        $stringyears="years";
+        if($months>1)
+        $stringmonths="months";
+        if($days>1)
+        $stringdays="days";
+
+
+        if($years>0){
+            $finalyear=$years." ".$stringyears; 
+        }
+
+        if($months>0){
+            $finalmonth=$months." ".$stringmonths; 
+        }
+
+        if($days>0){
+            $finalday=$days." ".$stringdays; 
+        }
+
+        return $finalyear." ".$finalmonth." ".$finalday;
+
+
+
+}
 }
 

@@ -255,16 +255,22 @@
                     <td class="font-normal bold">Household Income:</td>
                     <td>{{$citizen->household->income}}</td>
                     <td width="150px"></td>
-                    <td class="font-normal bold">Type of Ownership:</td>
-                    <td>{{$citizen->household->ownership->name}}</td>
+                    
                 </tr>
 
             </table>
-
+            
             <table>
                 <tr>
-                    
-                    
+                    <td class="font-normal bold">Type of Ownership:</td>
+                    <td>{{$citizen->household->ownership->name}}</td>
+                    <td width="150px"></td>
+                    <td class="font-normal bold">Type of Material:</td>
+                    <td>
+                        @if(!empty($citizen->household->material->name))
+                        {{$citizen->household->material->name}}
+                        @endif
+                    </td>
                 </tr>
 
             </table>
@@ -287,7 +293,25 @@
                     <td class="font-normal bold">Fullname:</td>
                     <td width="500px" style="text-transform: uppercase;">{{$citizen->fullname()}}</td>
                     <td class="font-normal bold">Age:</td>
-                    <td style="text-transform: uppercase;">{{$citizen->age()}}</td>
+                    <td>
+                    @if($citizen->age() < 1)
+                            
+                                @if($citizen->ageMonth() < 1)
+                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%d day(s)')}}
+                                @else
+
+                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%m month(s)')}}
+
+                                @endif
+                           
+
+                            @else
+                            {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%y')}} year(s)
+
+                            @endif
+
+                    <!-- {{$citizen->age()}} -->
+                </td>
                     <td class="font-normal bold">Gender:</td>
                     <td>{{$citizen->gender->name}}</td>
                     <td width="50px"></td>
@@ -334,7 +358,7 @@
                     <td width="125px" class="font-normal bold">Year as Resident:</td>
                     <td>{{$citizen->yearlive}}</td>
                     <td width="50px"></td>
-                    <td width="125px" class="font-normal bold">Mothly Income:</td>
+                    <td width="125px" class="font-normal bold">Monthly Income:</td>
                     <td width="125px">{{$citizen->income}}</td>
                 </tr>
 

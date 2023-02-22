@@ -48,7 +48,7 @@ class Citizenagerangereports extends Component
                     ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->where('zones.id', $this->zone_id)
                     ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
-                    ->paginate(50)]);
+                    ->paginate(50, ['*'], 'agezonepagination')]);
                 }
                 else{
                     $age = Agebracket::find($this->agebracket_id);
@@ -61,7 +61,7 @@ class Citizenagerangereports extends Component
                     return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')
                     ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                     ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
-                    ->paginate(50)]);
+                    ->paginate(50, ['*'], 'agepagination')]);
                 }
             }
             else{
@@ -75,7 +75,7 @@ class Citizenagerangereports extends Component
                 return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')
                 ->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
                 ->whereBetween('citizens.birthdate', [$minDate,$maxDate])
-                ->paginate(50)]);
+                ->paginate(50, ['*'], 'agepagination')]);
             }
             
            
@@ -83,7 +83,7 @@ class Citizenagerangereports extends Component
         else
         {
             return view('livewire.citizenagerangereports', ['citizens' => Citizen::select('citizens.*')->whereRaw("((citizens.lastname LIKE '%".$this->searchToken."%') OR (citizens.firstname LIKE '%".$this->searchToken."%') OR (citizens.middlename LIKE '%".$this->searchToken."%'))")
-            ->paginate(50)]);
+            ->paginate(50, ['*'], 'agebracketpagination')]);
         }
 
         
@@ -96,4 +96,6 @@ class Citizenagerangereports extends Component
             $this->zone_id = '';
             $this->viewZone = false;
         }
+
+    
 }

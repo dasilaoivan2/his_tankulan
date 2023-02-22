@@ -220,9 +220,19 @@
     <br>
 
     <div class="content">
-        <table>
+    <table>
             <tr>
-                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px"></td>
+                <td width="150px" style="font-size: 12pt; font-weight: bold; margin-left: 10px">MALE:</td>
+                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$male}}</td>
+                <td width="850px" style="font-size: 12pt; font-weight: bold; margin-left: 10px"></td>
+            </tr>
+            <tr>
+                <td width="150px"  style="font-size: 12pt; font-weight: bold; margin-left: 10px">FEMALE:</td>
+                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$female}}</td>
+            </tr>
+            <tr>
+                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">TOTAL:</td>
+                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">{{$citizens->count()}}</td>
             </tr>
 
         </table>

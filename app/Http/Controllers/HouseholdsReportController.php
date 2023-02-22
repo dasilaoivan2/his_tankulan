@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classification;
 use App\Models\Household;
+use App\Models\Material;
 use App\Models\Ownership;
 use App\Models\Type;
 use App\Models\Zone;
@@ -96,5 +97,28 @@ class HouseholdsReportController extends Controller
 
 
         return view('reports.households.householdzoneownership', compact('households', 'ownership', 'zone'));
+    }
+
+    public function householdmaterial($material_id)
+    {
+        $material = Material::find($material_id);
+        $households = Household::where('material_id', $material_id)->get();
+
+       
+
+        return view('reports.households.householdmaterial', compact('households', 'material'));
+    }
+
+    public function householdzonematerial($zone_id, $material_id)
+    {
+        $zone = Zone::find($zone_id);
+        $material = Material::find($material_id);
+
+        $households = Household::where('material_id', $material_id)
+        ->where('zone_id', $zone->id)
+        ->get();
+
+
+        return view('reports.households.householdzonematerial', compact('households', 'material', 'zone'));
     }
 }

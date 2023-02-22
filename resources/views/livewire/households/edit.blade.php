@@ -102,7 +102,7 @@
                             <x-jet-input-error for="income" class="mt-2" />
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border py-4 px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border py-4 px-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 border gap-6 py-4 px-4">
                             <div class="flex items-center">
                                 <x-jet-label for="cr" value="{{ __('Household with Comfort Room (CR)? *') }}" />
@@ -136,6 +136,26 @@
                                 
                             </div>
                             <x-jet-input-error for="ownership_id" class="mt-2" />
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 border gap-6 py-4 px-4">
+                            <div class="flex items-center" style="justify-content: flex-end;">
+                                <x-jet-label for="cr" value="{{ __('Type of Material *') }}" />
+
+                            </div>
+                            <div class="flex items-center col-span-2">
+                                <select id="material_id" wire:model="material_id" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                                    <option value="">Select...</option>
+
+                                    @foreach($materials as $material)
+
+                                    <option value="{{$material->id}}">{{$material->name}}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+                            <x-jet-input-error for="material_id" class="mt-2" />
                         </div>
                     </div>
                 </div>

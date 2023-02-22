@@ -219,10 +219,22 @@
     <div class="content">
     <table>
             <tr>
-                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">TOTAL: {{$citizens->count()}}</td>
+                <td width="150px" style="font-size: 12pt; font-weight: bold; margin-left: 10px">MALE:</td>
+                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$gender_records->male}}</td>
+                <td width="850px" style="font-size: 12pt; font-weight: bold; margin-left: 10px"></td>
+            </tr>
+            <tr>
+                <td width="150px"  style="font-size: 12pt; font-weight: bold; margin-left: 10px">FEMALE:</td>
+                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$gender_records->female}}</td>
+            </tr>
+            <tr>
+                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">TOTAL:</td>
+                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">{{$gender_records->all}}</td>
             </tr>
 
         </table>
+        
+        
         <br>
         <table>
             <tr>

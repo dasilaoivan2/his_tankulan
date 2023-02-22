@@ -221,6 +221,23 @@
     <br>
 
     <div class="content">
+    <table>
+            <tr>
+                <td width="150px" style="font-size: 12pt; font-weight: bold; margin-left: 10px">MALE:</td>
+                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$gender_records->male}}</td>
+                <td width="850px" style="font-size: 12pt; font-weight: bold; margin-left: 10px"></td>
+            </tr>
+            <tr>
+                <td width="150px"  style="font-size: 12pt; font-weight: bold; margin-left: 10px">FEMALE:</td>
+                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$gender_records->female}}</td>
+            </tr>
+            <tr>
+                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">TOTAL:</td>
+                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">{{$gender_records->all}}</td>
+            </tr>
+
+        </table>
+        <br>
         <table>
             <tr>
                 <td style="border: solid black 1px; background: lightgray;">NO.</td>
@@ -251,7 +268,25 @@
                 <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->middlename}}</td>
                 <td width="35px" style="border: solid black 1px; text-transform: uppercase;">{{$citizen->suffixname}}</td>
                 <td style="border: solid black 1px; text-transform: uppercase;">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{\Carbon\Carbon::parse($citizen->birthdate)->age}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase;">
+                @if($citizen->age() < 1)
+                            
+                                @if($citizen->ageMonth() < 1)
+                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%d day(s)')}}
+                                @else
+
+                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%m month(s)')}}
+
+                                @endif
+                           
+
+                            @else
+                            {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%y')}}
+
+                            @endif
+                
+                <!-- {{\Carbon\Carbon::parse($citizen->birthdate)->age}} -->
+            </td>
                 <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->household->residence_name}}</td>
                 <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->household->zone->name}}</td>
             </tr>

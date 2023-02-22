@@ -263,6 +263,13 @@
                     <td width="150px" class="font-normal bold">Type of Ownership:</td>
                     <td>{{$household->ownership->name}}</td>
                     <td width="150px"></td>
+                    <td width="150px" class="font-normal bold">Type of Material:</td>
+                    <td>
+                        @if(!empty($household->material->name))
+                        {{$household->material->name}}
+                        @endif
+                    </td>
+                    <td width="150px"></td>
                     <td class="font-normal bold"></td>
                     <td></td>
                 </tr>
@@ -290,7 +297,7 @@
                     <td class="font-normal bold">Role</td>
                     <td class="font-normal bold">Occupation</td>
                     <td width="60px" class="font-normal bold">Year as Resident</td>
-                    <td width="60px" class="font-normal bold">Montly Income</td>
+                    <td width="60px" class="font-normal bold">Monthly Income</td>
                 </tr>
                 </thead>
 

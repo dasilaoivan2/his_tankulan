@@ -170,7 +170,7 @@
 </style>
 
 <body class="long-size">
-    <div id="logo-bg">
+<div id="logo-bg">
         <img style="width: 8.5in" src="{{asset('storage/logo/tankulan_logo.png')}}">
     </div>
 
@@ -209,9 +209,11 @@
 
         <table>
             <tr>
-                <td style="font-size: 16pt; font-weight: bold; text-transform:uppercase">{{$citizentype->name}} REPORT</td>
+                <td style="font-size: 16pt; font-weight: bold">HOUSEHOLD TYPE OF MATERIAL REPORT</td>
             </tr>
-            
+            <tr>
+                <td style="font-size: 14pt; font-weight: bold; text-transform:uppercase">{{$material->name}}</td>
+            </tr>
         </table>
     </div>
 
@@ -219,75 +221,56 @@
     <br>
 
     <div class="content">
-    <table>
-            <tr>
-                <td width="150px" style="font-size: 12pt; font-weight: bold; margin-left: 10px">MALE:</td>
-                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$gender_records->male}}</td>
-                <td width="850px" style="font-size: 12pt; font-weight: bold; margin-left: 10px"></td>
-            </tr>
-            <tr>
-                <td width="150px"  style="font-size: 12pt; font-weight: bold; margin-left: 10px">FEMALE:</td>
-                <td style="font-size: 12pt; font-weight: bold; margin-left: 10px">{{$gender_records->female}}</td>
-            </tr>
-            <tr>
-                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">TOTAL:</td>
-                <td width="150px" style="font-size: 16pt; font-weight: bold; margin-left: 10px">{{$gender_records->all}}</td>
-            </tr>
-
-        </table>
-        <br>
         <table>
             <tr>
                 <td style="border: solid black 1px; background: lightgray;">NO.</td>
-                <td style="border: solid black 1px; background: lightgray;">LASTNAME</td>
-                <td style="border: solid black 1px; background: lightgray;">FIRSTNAME</td>
-                <td style="border: solid black 1px; background: lightgray;">MIDDLENAME</td>
-                <td width="35px" style="border: solid black 1px; background: lightgray;">EXT.</td>
-                <td style="border: solid black 1px; background: lightgray;">BIRTHDATE</td>
-                <td style="border: solid black 1px; background: lightgray;">AGE</td>
                 <td style="border: solid black 1px; background: lightgray;">HOUSEHOLD NAME</td>
-                <td style="border: solid black 1px; background: lightgray;">ZONE</td>
+                <td style="border: solid black 1px; background: lightgray;">TYPE</td>
+                <td style="border: solid black 1px; background: lightgray;">CLASSIFICATION</td>
+                <td style="border: solid black 1px; background: lightgray;">HEAD OF FAMILY</td>
+                <td width="50px" style="border: solid black 1px; background: lightgray;"># OF RESIDENT(S)</td>
+                <td style="border: solid black 1px; background: lightgray;">ADDRESS</td>
+                <td width="70px" style="border: solid black 1px; background: lightgray;">INCOME</td>
             </tr>
             @php
-            $count = 0
+            $count = 0;
+            $count_head = 0;
             @endphp
 
 
-            @foreach($citizens as $citizen)
+            @foreach($households as $household)
 
             @php
-                $count++
+                $count++;
+                
             @endphp
 
             <tr>
                 <td style="border: solid black 1px;">{{$count}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->lastname}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->firstname}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->middlename}}</td>
-                <td width="35px" style="border: solid black 1px; text-transform: uppercase;">{{$citizen->suffixname}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">
-                @if($citizen->age() < 1)
-                            
-                                @if($citizen->ageMonth() < 1)
-                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%d day(s)')}}
-                                @else
+                <td style="border: solid black 1px; text-transform: uppercase;">{{$household->residence_name}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase;">{{$household->type->name}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase;">{{$household->classification->name}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase">
+                @foreach($household->citizensHead as $head)
 
-                                {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%m month(s)')}}
+                @php
+                $count_head++;
+                
+                @endphp
 
-                                @endif
-                           
-
-                            @else
-                            {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%y')}}
-
-                            @endif
-                            
-                <!-- {{\Carbon\Carbon::parse($citizen->birthdate)->age}} -->
-            </td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->household->residence_name}}</td>
-                <td style="border: solid black 1px; text-transform: uppercase;">{{$citizen->household->zone->name}}</td>
+                    {{$count_head}}. {{$head->fullname()}}<br>
+                @endforeach
+                </td>
+                <td style="border: solid black 1px; text-transform: uppercase; text-align:center">{{$household->citizens->count()}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase;">{{$household->address_detail}}, {{$household->zone->name}}</td>
+                <td style="border: solid black 1px; text-transform: uppercase;">{{$household->income}}</td>
+                
+                
             </tr>
+            @php
+                $count_head = 0;
+                
+                @endphp
             @endforeach
         </table>
         <br>
@@ -298,7 +281,7 @@
             </tr>
         </table>
 
-        <!-- dd{{$citizens}} -->
+        
 
 
 

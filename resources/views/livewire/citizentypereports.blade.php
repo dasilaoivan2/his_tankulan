@@ -140,7 +140,23 @@
                         <td class="border px-4 py-2">{{$citizen->firstname}} @if($citizen->middlename != NULL){{$citizen->middlename[0]}}. @else @endif {{$citizen->lastname}} {{$citizen->suffixname}}</td>
                         <td class="border px-4 py-2">{{ $citizen->household->residence_name}}</td>
                         <td class="border px-4 py-2">{{\Carbon\Carbon::parse($citizen->birthdate)->format('M d, Y')}}</td>
-                        <td class="border px-4 py-2">{{\Carbon\Carbon::parse($citizen->birthdate)->age}}</td>
+                        <td class="border px-4 py-2">
+                        @if($citizen->age() < 1)
+                            
+                            @if($citizen->ageMonth() < 1)
+                            {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%d day(s)')}}
+                            @else
+
+                            {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%m month(s)')}}
+
+                            @endif
+                       
+
+                        @else
+                        {{\Carbon\Carbon::parse($citizen->birthdate)->diff(\Carbon\Carbon::now())->format('%y')}}
+
+                        @endif
+                        </td>
                         <td class="border">
                             <a href="{{route('citizens.individual.reports', ['id' => $citizen->id])}}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition" target="_blank">
                                 <i class="fa fa-print fa-lg" style="margin-right: 10px"></i>
